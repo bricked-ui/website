@@ -35,9 +35,10 @@ export function Nav({ page }: { page: string }) {
           <a href="#/" aria-current={page === "/" ? "page" : undefined}>Home</a>
           <a href="#/showcase" aria-current={page === "/showcase" ? "page" : undefined}>Showcase</a>
           <a href="#/docs" aria-current={page === "/docs" ? "page" : undefined}>Docs</a>
-          <a href="https://github.com/bricked-ui" target="_blank" rel="noreferrer">
-            <PixelIcon name="code" />
-            <span>GitHub</span>
+          <a href="https://github.com/bricked-ui" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <span style={{ "--icon": "1.5px" } as React.CSSProperties}>
+              <PixelIcon name="github" />
+            </span>
           </a>
         </nav>
       </div>

@@ -1077,15 +1077,18 @@ function ActionsSection() {
 function IconsSection() {
   return (
     <Card title="Pixel icons">
-      <Demo tag="@bricked/pixel-icon — 20 glyphs, 7×7">
-        <div className="icon-grid">
-          {Object.keys(ICONS).map((name) => (
-            <figure key={name}>
-              <PixelIcon name={name as PixelIconName} />
-              <figcaption>{name}</figcaption>
-            </figure>
-          ))}
-        </div>
+      <Demo tag="@bricked/pixel-icon — 22 glyphs (github is 16×16, the rest 7×7)">
+                  <div className="icon-grid">
+                    {Object.keys(ICONS).map((name) => (
+                      <figure
+                        key={name}
+                        style={name === "github" ? { "--icon": "2px" } as React.CSSProperties : undefined}
+                      >
+                        <PixelIcon name={name as PixelIconName} />
+                        <figcaption>{name}</figcaption>
+                      </figure>
+                    ))}
+                  </div>
       </Demo>
     </Card>
   );
