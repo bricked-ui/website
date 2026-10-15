@@ -1,5 +1,6 @@
 import * as React from "react";
 import logoUrl from "./assets/bricked-ui-icon.svg";
+import { PixelIcon } from "./components/PixelIcon";
 import { componentItems } from "./data/registry";
 import { Docs } from "./pages/Docs";
 import { Home } from "./pages/Home";
@@ -34,6 +35,10 @@ export function Nav({ page }: { page: string }) {
           <a href="#/" aria-current={page === "/" ? "page" : undefined}>Home</a>
           <a href="#/showcase" aria-current={page === "/showcase" ? "page" : undefined}>Showcase</a>
           <a href="#/docs" aria-current={page === "/docs" ? "page" : undefined}>Docs</a>
+          <a href="https://github.com/bricked-ui" target="_blank" rel="noreferrer">
+            <PixelIcon name="code" />
+            <span>GitHub</span>
+          </a>
         </nav>
       </div>
     </div>
@@ -54,9 +59,15 @@ export function Footer({ clock }: { clock?: boolean }) {
         <p>
           A copy-paste component kit in pixel-art brick — {componentItems.length} pieces
           and counting. Browse the <a href="#/showcase">Showcase</a>, read the{" "}
-          <a href="#/docs">Docs</a>, or inspect <a href="./r/registry.json">registry.json</a>.
+          <a href="#/docs">Docs</a>, inspect <a href="./r/registry.json">registry.json</a>,
+          or star the code on{" "}
+          <a href="https://github.com/bricked-ui" target="_blank" rel="noreferrer">GitHub</a>.
         </p>
-        {clock && <p>Clock: {now.toLocaleTimeString([], { hour12: false })}</p>}
+        {clock && (
+          <p>
+            Clock: <time dateTime={now.toISOString()}>{now.toLocaleTimeString([], { hour12: false })}</time>
+          </p>
+        )}
       </div>
     </footer>
   );

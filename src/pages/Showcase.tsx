@@ -305,9 +305,9 @@ function CounterWidget() {
       >
         −
       </button>
-      <span className="bk-count__val bk-cut" aria-live="polite">
+      <output className="bk-count__val bk-cut">
         {v}
-      </span>
+      </output>
       <button
         type="button"
         aria-label="More"
@@ -345,9 +345,9 @@ function RatingWidget() {
 function ChipsWidget() {
   const [items, setItems] = React.useState(["Pixel", "Orange", "Brick"]);
   return (
-    <div className="bk-chips">
+    <ul className="bk-chips">
       {items.map((t) => (
-        <span key={t} className="bk-chip bk-cut">
+        <li key={t} className="bk-chip bk-cut">
           {t}
           <button
             type="button"
@@ -357,9 +357,9 @@ function ChipsWidget() {
           >
             ×
           </button>
-        </span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
@@ -401,29 +401,26 @@ function AccordionWidget() {
     "Send it back within 30 days.",
     "Chat is open every day.",
   ];
-  const [open, setOpen] = React.useState(0);
+  // Native disclosure: zero JS. The shared `name` keeps it single-open,
+  // exactly like a controlled accordion, with free keyboard support.
   return (
     <div className="bk-acc">
       {["Shipping", "Returns", "Support"].map((t, i) => (
-        <div key={t}>
-          <button
-            type="button"
-            aria-expanded={open === i}
-            className="bk-acc__btn bk-cut"
-            onClick={() => setOpen(open === i ? -1 : i)}
-          >
+        <details key={t} name="showcase-accordion" open={i === 0}>
+          <summary className="bk-acc__btn bk-cut">
             {t}
             <PixelIcon name="down" />
-          </button>
-          {open === i && <p className="bk-acc__body">{bodies[i]}</p>}
-        </div>
+          </summary>
+          <p className="bk-acc__body">{bodies[i]}</p>
+        </details>
       ))}
     </div>
   );
 }
 
 function MenuWidget() {
-  const [open, setOpen] = React.useState(false);
+  // Native popover: light-dismiss, Esc and top-layer come free. The only JS
+  // left records which item was picked (app state, not UI plumbing).
   const [label, setLabel] = React.useState("Sort by");
   return (
     <div className="bk-menu-space">
@@ -432,71 +429,66 @@ function MenuWidget() {
           type="button"
           className="bricked-btn bricked-btn--sm"
           aria-haspopup="menu"
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
+          popovertarget="sort-menu"
         >
           <span>{label}</span>
         </button>
-        {!open ? null : (
-          <div className="bk-menu__list bk-cut" role="menu">
-            {["Newest", "Oldest", "Price"].map((it) => (
-              <button
-                key={it}
-                type="button"
-                role="menuitem"
-                className="bk-menu__item"
-                onClick={() => {
-                  setLabel(it);
-                  setOpen(false);
-                }}
-              >
-                {it}
-              </button>
-            ))}
-          </div>
-        )}
+        <div className="bk-menu__list bk-cut" role="menu" id="sort-menu" popover="auto">
+          {["Newest", "Oldest", "Price"].map((it) => (
+            <button
+              key={it}
+              type="button"
+              role="menuitem"
+              className="bk-menu__item"
+              popovertarget="sort-menu"
+              popovertargetaction="hide"
+              onClick={() => setLabel(it)}
+            >
+              {it}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-function ModalShell({
+function BrickDialog({
   title,
-  label,
+  open,
   onClose,
   children,
 }: {
   title: string;
-  label: string;
+  open: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }) {
+  const ref = React.useRef<HTMLDialogElement>(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (open && !el.open) el.showModal();
+    else if (!open && el.open) el.close();
+  }, [open ]);
   return (
-    <div className="bk-overlay" onClick={onClose}>
-      <div
-        className="bk-modal bk-cut"
-        role="dialog"
-        aria-modal="true"
-        aria-label={label}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <header className="bk-card__head bk-modal__head">{title}</header>
-        <div className="bk-card__body">{children}</div>
-      </div>
-    </div>
+    <dialog
+      ref={ref}
+      className="bk-modal bk-cut"
+      aria-label={title}
+      onClose={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) ref.current?.close();
+      }}
+    >
+      <header className="bk-card__head bk-modal__head">{title}</header>
+      <div className="bk-card__body">{children}</div>
+    </dialog>
   );
 }
 
 function ModalDemo() {
   const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
   return (
     <>
       <button
@@ -506,12 +498,11 @@ function ModalDemo() {
         <PixelIcon name="home" />
         <span>Open modal</span>
       </button>
-      {open && (
-        <ModalShell
-          title="Delete brick?"
-          label="Delete brick?"
-          onClose={() => setOpen(false)}
-        >
+      <BrickDialog
+        title="Delete brick?"
+        open={open}
+        onClose={() => setOpen(false)}
+      >
           <p>This brick will be removed from your wall.</p>
           <div className="bk-row">
             <button
@@ -527,8 +518,7 @@ function ModalDemo() {
               <span>Cancel</span>
             </button>
           </div>
-        </ModalShell>
-      )}
+      </BrickDialog>
     </>
   );
 }
@@ -743,12 +733,13 @@ function CountdownWidget() {
     const i = window.setInterval(() => setS((v) => Math.max(0, v - 1)), 1000);
     return () => window.clearInterval(i);
   }, []);
-  const h = String(Math.floor(s / 3600)).padStart(2, "0");
-  const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
-  const ss = String(s % 60).padStart(2, "0");
+  const hh = Math.floor(s / 3600);
+  const mm = Math.floor((s % 3600) / 60);
+  const ss = s % 60;
+  const p = (n: number) => String(n).padStart(2, "0");
   return (
     <div className="bk-clock bk-cut" role="timer">
-      {h}:{m}:{ss}
+      <time dateTime={`PT${hh}H${mm}M${ss}S`}>{p(hh)}:{p(mm)}:{p(ss)}</time>
     </div>
   );
 }
@@ -761,7 +752,7 @@ function ClockWidget() {
   }, []);
   return (
     <div className="bk-clock bk-cut" role="timer">
-      {t.toLocaleTimeString([], { hour12: false })}
+      <time dateTime={t.toISOString()}>{t.toLocaleTimeString([], { hour12: false })}</time>
     </div>
   );
 }
@@ -935,20 +926,13 @@ function CarouselWidget() {
 }
 
 function CollapsibleWidget() {
-  const [open, setOpen] = React.useState(false);
+  // Same story: native disclosure, no state.
   return (
     <div className="bk-acc" style={{ marginTop: 8 }}>
-      <div>
-        <button
-          type="button"
-          aria-expanded={open}
-          className="bk-acc__btn bk-cut"
-          onClick={() => setOpen(!open)}
-        >
-          More details
-        </button>
-        {open && <p className="bk-acc__body">mortar: #a24a00 at 30%.</p>}
-      </div>
+      <details>
+        <summary className="bk-acc__btn bk-cut">More details</summary>
+        <p className="bk-acc__body">mortar: #a24a00 at 30%.</p>
+      </details>
     </div>
   );
 }
@@ -993,13 +977,12 @@ function DialogDemo() {
           <span>Open dialog</span>
         </button>
       </div>
-      {open && (
-        <ModalShell
-          title="Build wall?"
-          label="Build wall?"
-          onClose={() => setOpen(false)}
-        >
-          <p>24 bricks, zero radius.</p>
+      <BrickDialog
+        title="Build wall?"
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <p>24 bricks, zero radius.</p>
           <div className="bk-row">
             <button
               className="bricked-btn bricked-btn--sm"
@@ -1014,8 +997,7 @@ function DialogDemo() {
               <span>Cancel</span>
             </button>
           </div>
-        </ModalShell>
-      )}
+      </BrickDialog>
     </>
   );
 }
@@ -1281,22 +1263,25 @@ function FormsSection() {
           </span>
           Accept terms
         </label>
-        <div className="bk-row" style={{ marginTop: 8 }}>
-          <label className="bk-check">
-            <input type="radio" name="dplan" defaultChecked />
-            <span className="bk-check__box bk-round">
-              <PixelIcon name="dot" />
-            </span>
-            Free
-          </label>
-          <label className="bk-check">
-            <input type="radio" name="dplan" />
-            <span className="bk-check__box bk-round">
-              <PixelIcon name="dot" />
-            </span>
-            Pro
-          </label>
-        </div>
+        <fieldset style={{ border: 0, margin: 0, padding: 0 }}>
+          <legend className="bk-label">Plan</legend>
+          <div className="bk-row" style={{ marginTop: 8 }}>
+            <label className="bk-check">
+              <input type="radio" name="dplan" defaultChecked />
+              <span className="bk-check__box bk-round">
+                <PixelIcon name="dot" />
+              </span>
+              Free
+            </label>
+            <label className="bk-check">
+              <input type="radio" name="dplan" />
+              <span className="bk-check__box bk-round">
+                <PixelIcon name="dot" />
+              </span>
+              Pro
+            </label>
+          </div>
+        </fieldset>
         <div className="bk-row" style={{ marginTop: 8 }}>
           <SwitchWidget />
           <span>Sound</span>
@@ -1341,31 +1326,37 @@ function FormsSection() {
           ))}
         </div>
       </Demo>
-      <Demo tag="@bricked/list-group">
-        <div className="bk-list">
-          <button
-            type="button"
-            className="bk-list__btn bk-cut"
-            aria-pressed="true"
-          >
-            Inbox
-          </button>
-          <button
-            type="button"
-            className="bk-list__btn bk-cut"
-            aria-pressed="false"
-          >
-            Drafts
-          </button>
-          <button
-            type="button"
-            className="bk-list__btn bk-cut"
-            aria-pressed="false"
-          >
-            Sent
-          </button>
-        </div>
-      </Demo>
+        <Demo tag="@bricked/list-group">
+          <ul className="bk-list">
+            <li>
+              <button
+                type="button"
+                className="bk-list__btn bk-cut"
+                aria-pressed="true"
+              >
+                Inbox
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                className="bk-list__btn bk-cut"
+                aria-pressed="false"
+              >
+                Drafts
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                className="bk-list__btn bk-cut"
+                aria-pressed="false"
+              >
+                Sent
+              </button>
+            </li>
+          </ul>
+        </Demo>
     </Card>
   );
 }
@@ -1586,22 +1577,26 @@ function FunSection() {
           <span className="bk-badge bk-cut">First wall ★</span>
           <span className="bk-badge bk-cut bk-badge--dark">Score 1284</span>
         </div>
-        <div className="bk-list" style={{ marginTop: 8 }}>
-          <button
-            type="button"
-            className="bk-list__btn bk-cut"
-            aria-pressed="true"
-          >
-            Lay 10 bricks — done ✓
-          </button>
-          <button
-            type="button"
-            className="bk-list__btn bk-cut"
-            aria-pressed="false"
-          >
-            Build a wall — 0/24
-          </button>
-        </div>
+        <ul className="bk-list" style={{ marginTop: 8 }}>
+          <li>
+            <button
+              type="button"
+              className="bk-list__btn bk-cut"
+              aria-pressed="true"
+            >
+              Lay 10 bricks — done ✓
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="bk-list__btn bk-cut"
+              aria-pressed="false"
+            >
+              Build a wall — 0/24
+            </button>
+          </li>
+        </ul>
       </Demo>
     </Card>
   );
@@ -1655,9 +1650,9 @@ function ParitySection() {
             <b>Wall:</b> Orange is always right.
           </p>
         </div>
-        <div className="bk-code bk-cut" style={{ marginTop: 8 }}>
+        <pre className="bk-code bk-cut" style={{ marginTop: 8 }}>
           trace: thought “one more brick” → tool lay_brick(1) → ok
-        </div>
+        </pre>
       </Demo>
       <Demo tag="@bricked/button-group · toggle-group · radio-group · menubar · navigation-menu · context-menu">
         <div className="bk-row">
@@ -1814,20 +1809,21 @@ export function Showcase({ category }: { category: CategoryId }) {
             </p>
             <div className="show-layout">
               <aside className="show-side" aria-label="Categories">
-                <div className="bk-list">
+                <ul className="bk-list">
                   {CATEGORIES.map((c) => (
-                    <a
-                      key={c.id}
-                      href={`#/showcase/${c.id}`}
-                      aria-current={c.id === category ? "page" : undefined}
-                      aria-pressed={c.id === category}
-                      className="bk-list__btn bk-cut"
-                      style={{ display: "block", textDecoration: "none" }}
-                    >
-                      {c.label} · {c.items.length}
-                    </a>
+                    <li key={c.id}>
+                      <a
+                        href={`#/showcase/${c.id}`}
+                        aria-current={c.id === category ? "page" : undefined}
+                        aria-pressed={c.id === category}
+                        className="bk-list__btn bk-cut"
+                        style={{ display: "block", textDecoration: "none" }}
+                      >
+                        {c.label} · {c.items.length}
+                      </a>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </aside>
               <div className="show-main">
                 <Section />

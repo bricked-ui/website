@@ -47,11 +47,7 @@
   align-items: center;
   gap: 16px;
   padding: 12px 0;
-}
-.nav__logo {
-  font: 14px "Press Start 2P", monospace;
-  color: var(--ink);
-  text-decoration: none;
+  flex-wrap: wrap;
 }
 .nav__links {
   margin-left: auto;
@@ -66,6 +62,9 @@
   background: var(--field);
   padding: 8px 12px 10px;
   box-shadow: inset -3px -3px 0 var(--shade);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 .nav__links a[aria-current="page"] {
   background: var(--ink);
@@ -85,7 +84,7 @@
   margin-bottom: 20px;
 }
 .hero h1 {
-  font: 34px/1.5 "Press Start 2P", monospace;
+  font: clamp(22px, 7vw, 34px)/1.5 "Press Start 2P", monospace;
   color: var(--ink);
   margin: 0 0 16px;
 }
@@ -122,6 +121,9 @@
   background: var(--ink);
   color: #ffd9b0;
   padding: 12px 16px 14px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .install code b {
   color: var(--orange);
@@ -381,4 +383,90 @@ table.doc td:first-child {
 }
 .site-footer p {
   color: #ffd9b0;
+}
+
+/* Native dialogs carry the brick modal look. Backdrop + Esc come free. */
+dialog.bk-modal {
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  margin: auto;
+  max-width: calc(100vw - 48px);
+}
+dialog.bk-modal::backdrop {
+  background: rgba(43, 17, 0, 0.72);
+}
+
+/* Native disclosure: hide the default triangle, reuse the brick states. */
+summary.bk-acc__btn {
+  list-style: none;
+}
+summary.bk-acc__btn::-webkit-details-marker {
+  display: none;
+}
+summary.bk-acc__btn::marker {
+  content: none;
+}
+details[open] > summary.bk-acc__btn {
+  background: var(--orange);
+}
+details[open] > summary.bk-acc__btn .bricked-icon {
+  transform: rotate(180deg);
+}
+
+/* Native popover: undo UA centering so the menu drops from its trigger. */
+.bk-menu .bk-menu__list[popover] {
+  position: absolute;
+  inset: auto;
+  top: calc(100% + 8px);
+  left: 0;
+  margin: 0;
+}
+
+/* Lists are real lists now; kill default markers. */
+ul.bk-chips {
+  margin: 0;
+  padding: 0;
+}
+.bk-list > li,
+.bk-chips > li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Long flex children must be allowed to shrink instead of overflowing. */
+.bk-banner span,
+.bk-toast span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.bk-menu__list {
+  max-width: calc(100vw - 96px);
+  overflow-x: auto;
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding: 48px 0 32px;
+  }
+  .hero p.lead {
+    font-size: 21px;
+  }
+  .nav__logo {
+    font-size: 11px;
+  }
+  .nav__links a {
+    font-size: 9px;
+    padding: 6px 8px 8px;
+  }
+  .install code {
+    font-size: 17px;
+  }
+  .bk-gallery {
+    grid-template-columns: 1fr;
+  }
+  .page-head h1 {
+    font-size: 19px;
+  }
 }
