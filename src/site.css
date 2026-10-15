@@ -71,6 +71,30 @@
   color: var(--orange);
   box-shadow: inset -3px -3px 0 #000;
 }
+.theme-toggle {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: auto;
+}
+.theme-toggle button {
+  font: 9px "Press Start 2P", monospace;
+  color: var(--ink);
+  background: var(--field);
+  border: 0;
+  border-radius: 0;
+  padding: 8px 10px 10px;
+  cursor: pointer;
+  box-shadow: inset -3px -3px 0 var(--shade);
+}
+.theme-toggle button.is-on {
+  color: var(--ink);
+  background: var(--orange) var(--bricks) center / 36px 18px;
+  box-shadow: inset -3px -3px 0 var(--shade);
+}
+.theme-toggle button:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--ink);
+}
 .hero {
   text-align: center;
   padding: 72px 0 48px;
@@ -85,7 +109,7 @@
 }
 .hero h1 {
   font: clamp(22px, 7vw, 34px)/1.5 "Press Start 2P", monospace;
-  color: var(--ink);
+  color: var(--page-ink);
   margin: 0 0 16px;
 }
 .hero h1 .hl {
@@ -97,7 +121,7 @@
   font-size: 24px;
   max-width: 640px;
   margin: 0 auto 24px;
-  color: var(--ink);
+  color: var(--page-ink);
 }
 .hero__cta {
   display: flex;
@@ -141,37 +165,40 @@
 }
 .page-head h1 {
   font: 24px/1.5 "Press Start 2P", monospace;
-  color: var(--ink);
+  color: var(--page-ink);
   margin: 0 0 12px;
 }
 .page-head p {
   font-size: 22px;
   max-width: 680px;
   margin: 0;
-  color: var(--ink);
+  color: var(--page-ink);
 }
 .section {
   padding: 40px 0 8px;
 }
 .section h2 {
   font: 16px "Press Start 2P", monospace;
-  color: var(--ink);
+  color: var(--page-ink);
   margin: 0 0 6px;
 }
 .section h3 {
   font: 12px "Press Start 2P", monospace;
-  color: var(--ink);
+  color: var(--page-ink);
   margin: 24px 0 8px;
 }
 .section p,
 .section li {
-  color: var(--ink);
+  color: var(--page-ink);
   max-width: 760px;
 }
 .swatches {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 .sw {
   width: 96px;
@@ -223,6 +250,15 @@
     flex-wrap: wrap;
   }
 }
+figure.demo {
+  margin: 0 0 16px;
+}
+figure.demo:last-child {
+  margin-bottom: 0;
+}
+figure.demo > figcaption {
+  margin: 0;
+}
 .demo-tag {
   display: inline-block;
   font: 9px "Press Start 2P", monospace;
@@ -236,6 +272,10 @@
 }
 .demo:last-child {
   margin-bottom: 0;
+}
+.src-code .doc-code {
+  font-size: 15px;
+  line-height: 1.4;
 }
 .icon-grid {
   display: grid;
@@ -335,9 +375,10 @@
   margin-bottom: 4px;
 }
 .doc-code {
+  position: relative;
   background: var(--ink);
   color: #ffd9b0;
-  padding: 14px 16px 16px;
+  padding: 14px 110px 16px 16px;
   overflow-x: auto;
   font-size: 19px;
   margin: 12px 0;
@@ -345,6 +386,22 @@
 .doc-code b {
   color: var(--orange);
   font-weight: normal;
+}
+.doc-code .doc-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font: 9px "Press Start 2P", monospace;
+  color: var(--ink);
+  background: var(--field);
+  border: 0;
+  border-radius: 0;
+  padding: 6px 10px 8px;
+  cursor: pointer;
+  box-shadow: inset -3px -3px 0 var(--shade);
+}
+.section[id] {
+  scroll-margin-top: 76px;
 }
 .doc-table-wrap {
   overflow-x: auto;
@@ -468,5 +525,31 @@ ul.bk-chips {
   }
   .page-head h1 {
     font-size: 19px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Tables become stacked cards so action columns (Add/Code) are always
+     reachable — no horizontal scrolling needed to find the buttons. */
+  table.doc thead {
+    display: none;
+  }
+  table.doc,
+  table.doc tbody,
+  table.doc tr,
+  table.doc td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  table.doc tr {
+    border-bottom: 6px solid var(--shade);
+  }
+  table.doc td {
+    border-top: 0;
+  }
+  table.doc td:first-child {
+    white-space: normal;
+    background: var(--orange) var(--bricks) center / 36px 18px;
   }
 }

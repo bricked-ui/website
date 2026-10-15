@@ -23,6 +23,50 @@ export function usePath(): string {
   return path;
 }
 
+export type Theme = "light" | "dark" | "auto";
+
+function readTheme(): Theme {
+  try {
+    const t = localStorage.getItem("bk-theme");
+    if (t === "light" || t === "dark" || t === "auto") return t;
+  } catch {
+    /* storage unavailable — fall through to auto */
+  }
+  return "auto";
+}
+
+function applyTheme(t: Theme) {
+  if (t === "auto") document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme", t);
+  try {
+    localStorage.setItem("bk-theme", t);
+  } catch {
+    /* private mode etc. — theme just won't persist */
+  }
+}
+
+export function ThemeToggle() {
+  const [theme, setTheme] = React.useState<Theme>(readTheme);
+  React.useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+  return (
+    <div className="theme-toggle" role="group" aria-label="Color theme">
+      {(["light", "auto", "dark"] as Theme[]).map((t) => (
+        <button
+          key={t}
+          type="button"
+          aria-pressed={theme === t}
+          className={theme === t ? "is-on" : ""}
+          onClick={() => setTheme(t)}
+        >
+          {t}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function Nav({ page }: { page: string }) {
   return (
     <div className="nav">
@@ -41,6 +85,7 @@ export function Nav({ page }: { page: string }) {
             </span>
           </a>
         </nav>
+        <ThemeToggle />
       </div>
     </div>
   );

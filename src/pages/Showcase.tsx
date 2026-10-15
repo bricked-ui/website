@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ICONS, PixelIcon, type PixelIconName } from "../components/PixelIcon";
+import { cn } from "../lib/utils";
 import { componentItems } from "../data/registry";
 
 const KNOWN = new Set(componentItems.map((i) => i.name));
@@ -100,6 +101,7 @@ export const CATEGORIES = [
       "stepper",
       "command-palette",
       "scroll-area",
+      "sidebar-rail",
     ],
   },
   {
@@ -179,24 +181,28 @@ function Tag({ children }: { children: React.ReactNode }) {
   return <span className="demo-tag">{children}</span>;
 }
 
-function Demo({ tag, children }: { tag: string; children: React.ReactNode }) {
+function Demo({ tag, children, className }: { tag: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className="demo">
-      <Tag>{tag}</Tag>
+    <figure className={className ? `demo ${className}` : "demo"}>
+      <figcaption>
+        <Tag>{tag}</Tag>
+      </figcaption>
       {children}
-    </div>
+    </figure>
   );
 }
 
 function Card({
   title,
   children,
+  className,
 }: {
   title: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <section className="bk-card bk-cut">
+    <section className={className ? `bk-card bk-cut ${className}` : "bk-card bk-cut"}>
       <header className="bk-card__head">{title}</header>
       <div className="bk-card__body">{children}</div>
     </section>
@@ -209,17 +215,19 @@ function Btn({
   disabled,
   children,
   onClick,
+  className,
 }: {
   icon?: PixelIconName;
   size?: "sm" | "lg";
   disabled?: boolean;
   children?: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 }) {
   return (
     <button
       type="button"
-      className={size ? `bricked-btn bricked-btn--${size}` : "bricked-btn"}
+      className={cn("bricked-btn", size && `bricked-btn--${size}`, className)}
       disabled={disabled}
       onClick={onClick}
     >
@@ -1425,9 +1433,32 @@ function NavigationSection() {
           </li>
         </ol>
       </Demo>
-      <Demo tag="@bricked/dropdown-menu · @bricked/command-palette">
-        <MenuWidget />
-      </Demo>
+        <Demo tag="@bricked/dropdown-menu · @bricked/command-palette">
+          <MenuWidget />
+        </Demo>
+        <Demo tag="@bricked/sidebar · sidebar-rail">
+          <div className="bk-row" style={{ alignItems: "flex-start" }}>
+            <aside className="bk-side bk-cut" style={{ minHeight: 0, width: 200 }} aria-label="Demo sidebar">
+              <div className="bk-side__head">
+                <PixelIcon name="home" />
+                <span>Base</span>
+              </div>
+              <div className="bk-side__body">
+                <button type="button" className="bk-list__btn bk-cut" aria-pressed="true">Dashboard</button>
+                <button type="button" className="bk-list__btn bk-cut" aria-pressed="false">Bricks</button>
+                <button type="button" className="bk-list__btn bk-cut" aria-pressed="false">Settings</button>
+              </div>
+              <div className="bk-side__foot">
+                <span className="bk-badge bk-cut">v2.4</span>
+              </div>
+            </aside>
+            <nav className="bk-rail bk-cut" aria-label="Demo icon rail">
+              <button type="button" className="bk-ibtn bk-cut" aria-label="Home"><PixelIcon name="home" /></button>
+              <button type="button" className="bk-ibtn bk-cut" aria-label="Cart"><PixelIcon name="cart" /></button>
+              <button type="button" className="bk-ibtn bk-cut" aria-label="Favorites"><PixelIcon name="heart" /></button>
+            </nav>
+          </div>
+        </Demo>
       <Demo tag="@bricked/scroll-area">
         <div className="scroll-demo">
           <p>Row one of many scrollable rows.</p>
@@ -1641,7 +1672,7 @@ function ParitySection() {
         </div>
       </Demo>
       <Demo tag="@bricked/message · bubble · message-scroller · marker · trace">
-        <div className="scroll-demo" style={{ height: 150 }}>
+        <div className="scroll-demo" style={{ height: 150 }} role="region" aria-label="Demo chat log" tabIndex={0}>
           <p style={{ margin: "0 0 8px" }}>
             <b>Ada:</b> Wall is up.{" "}
             <span className="bk-badge bk-cut">seen</span>
@@ -1757,6 +1788,9 @@ function ParitySection() {
               resize: "horizontal",
               overflow: "auto",
             }}
+            role="region"
+            aria-label="Resizable demo"
+            tabIndex={0}
           >
             Drag my corner — resizable.
           </div>

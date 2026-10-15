@@ -47,7 +47,7 @@ export function Home() {
         </div>
         <div className="install" id="install">
           <code>
-            <b>bunx</b> shadcn@latest add https://bricked-ui.dev/r/button.json
+            <b>bunx</b> shadcn@latest add https://bricked-ui.vercel.app/r/button.json
           </code>
           <code>
             <b>bunx</b> shadcn@latest add @bricked/button
@@ -73,7 +73,7 @@ export function Home() {
                   <p style={{ margin: 0 }}>Point your project at the registry once.</p>
                   <div className="install" style={{ justifyContent: "flex-start" }}>
                     <code>
-                      <b>bunx</b> shadcn registry add @bricked=https://bricked-ui.dev/r/{"{name}"}
+                      <b>bunx</b> shadcn registry add @bricked=https://bricked-ui.vercel.app/r/{"{name}"}
                       .json
                     </code>
                   </div>
@@ -159,14 +159,14 @@ export function Home() {
               <section className="bk-card bk-cut">
                 <header className="bk-card__head">Tokens</header>
                 <div className="bk-card__body">
-                  <div className="swatches">
-                    <div className="sw" style={{ background: "#2b1100", color: "#ffd9b0" }}>ink</div>
-                    <div className="sw" style={{ background: "#c25a00", color: "#fff" }}>shade</div>
-                    <div className="sw" style={{ background: "#ff8a1f", color: "#2b1100" }}>orange</div>
-                    <div className="sw" style={{ background: "#fff6ea", color: "#2b1100" }}>field</div>
-                    <div className="sw" style={{ background: "#ffd3a1", color: "#2b1100" }}>peach</div>
-                    <div className="sw" style={{ background: "#d63a1f", color: "#fff" }}>heart</div>
-                  </div>
+                  <ul className="swatches">
+                    <li className="sw" style={{ background: "#2b1100", color: "#ffd9b0" }}>ink</li>
+                    <li className="sw" style={{ background: "#c25a00", color: "#fff" }}>shade</li>
+                    <li className="sw" style={{ background: "#ff8a1f", color: "#2b1100" }}>orange</li>
+                    <li className="sw" style={{ background: "#fff6ea", color: "#2b1100" }}>field</li>
+                    <li className="sw" style={{ background: "#ffd3a1", color: "#2b1100" }}>peach</li>
+                    <li className="sw" style={{ background: "#d63a1f", color: "#fff" }}>heart</li>
+                  </ul>
                   <p style={{ margin: "8px 0 0" }}>
                     Every color has a job — see <a href="#/docs">Theming</a>.
                   </p>

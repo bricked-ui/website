@@ -19,19 +19,38 @@
   --shadow-*: initial;
 }
 
-/* Legacy kit variables resolve to the theme above. */
+/* Legacy kit variables resolve to the theme above. --page-bg/--page-ink
+   are the ONLY surface ink flips with data-theme: component surfaces
+   (peach cards, field inputs) stay identical in both modes by design. */
 :root {
   color-scheme: light;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   --page-bg: #efe2cf;
+  --page-ink: var(--color-ink);
   --ink: var(--color-ink);
   --shade: var(--color-shade);
   --orange: var(--color-brick);
   --field: var(--color-field);
   --peach: var(--color-peach);
   --bricks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8' preserveAspectRatio='none' shape-rendering='crispEdges'%3E%3Cg fill='%23a24a00' fill-opacity='.3'%3E%3Crect width='16' height='1'/%3E%3Crect y='4' width='16' height='1'/%3E%3Crect width='1' height='4'/%3E%3Crect x='8' y='4' width='1' height='4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Explicit dark, e.g. set by the theme toggle. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #1c1410;
+  --page-ink: var(--color-on-dark);
+}
+
+/* Auto mode: no data-theme attribute, follow the OS. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    color-scheme: dark;
+    --page-bg: #1c1410;
+    --page-ink: var(--color-on-dark);
+  }
 }
 
 html {
@@ -91,11 +110,7 @@ body {
 
 @layer components {
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { color-scheme: dark; --page-bg: #1c1410; }
-  }
-  :root[data-theme="dark"] { color-scheme: dark; --page-bg: #1c1410; }
-
+    
   html, body { height: 100%; margin: 0; }
   body { background: var(--page-bg); }
 
@@ -452,6 +467,14 @@ body {
   .bk-answer { --cut: 2px; display: grid; place-items: center; min-height: 64px; padding: 12px 16px 16px; text-align: center; font-size: 22px; color: #ffd9b0; background: var(--ink); box-shadow: inset -4px -4px 0 #000; }
   .bk-clock { --cut: 2px; padding: 16px 20px 20px; text-align: center; font: 20px 'Press Start 2P', monospace; color: var(--orange); background: var(--ink); box-shadow: inset -4px -4px 0 #000; }
 
+  /* sidebar + icon rail */
+  .bk-side { --cut: 2px; display: flex; flex-direction: column; width: 240px; max-width: 100%; min-height: 320px; box-sizing: border-box; background: var(--peach); box-shadow: inset -4px -4px 0 var(--shade); color: var(--ink); }
+  .bk-side__head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--orange) var(--bricks) center / 36px 18px; font: 10px 'Press Start 2P', monospace; line-height: 1.4; color: var(--ink); }
+  .bk-side__body { display: flex; flex-direction: column; gap: 4px; padding: 12px; flex: 1; }
+  .bk-side__foot { padding: 12px 16px 16px; font-size: 18px; }
+  .bk-rail { --cut: 2px; --icon: 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px; background: var(--ink); box-shadow: inset -4px -4px 0 #000; color: var(--ink); }
+  .bk-rail .bk-ibtn { width: 40px; height: 40px; }
+
   /* ---- text hardening: light-surface copy always pins ink ---- */
   .bk-card__head,
   .bk-table th,
@@ -499,6 +522,7 @@ body {
 @keyframes bk-caret { 50% { opacity: 0; } }
 
 @keyframes bk-fly { to { transform: translateY(-140px); } }
+
 
 /* ---- stacking loader, sequential cut ----
    All three bricks share one 2.4s cycle (so the loop restart hits them

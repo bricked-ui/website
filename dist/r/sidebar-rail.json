@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar-rail",
+  "type": "registry:ui",
+  "title": "Sidebar rail",
+  "description": "Narrow icon rail for tight layouts.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "pixel-icon"
+  ],
+  "files": [
+    {
+      "path": "registry/bricked-ui/sidebar-rail.tsx",
+      "content": "import * as React from \"react\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils\";\n\nconst railStyles = cva(\"bk-rail bk-cut\", {\n  variants: {\n    size: {\n      sm: \"[--px:4px] [--cut:1.5px] [--icon:3px] text-[11px]\",\n      md: \"[--px:6px] [--cut:2px] [--icon:4px] text-[14px]\",\n      lg: \"[--px:8px] [--cut:3px] [--icon:5px] text-[18px]\",\n    },\n    variant: {\n      primary: \"bg-ink text-on-dark\",\n      dark: \"bg-ink text-on-dark\",\n    },\n  },\n  defaultVariants: { size: \"md\", variant: \"primary\" },\n});\n\nexport interface SidebarRailProps\n  extends React.ComponentProps<\"nav\">,\n    VariantProps<typeof railStyles> {}\n\nexport function SidebarRail({\n  className,\n  size,\n  variant,\n  children,\n  ...props\n}: SidebarRailProps) {\n  return (\n    <nav aria-label=\"Sidebar\" className={cn(railStyles({ size, variant }), className)} {...props}>\n      {children}\n    </nav>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/sidebar-rail.tsx"
+    }
+  ]
+}
