@@ -1,0 +1,19 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "wall-builder",
+  "type": "registry:ui",
+  "title": "Wall builder",
+  "description": "Layable brick wall with counter.",
+  "registryDependencies": [
+    "./badge.json",
+    "./button.json",
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import Button from \"./button.svelte\";\n  import Badge from \"./badge.svelte\";\n\n  let n = $state(0);\n</script>\n\n<div class=\"bk-wall\" role=\"img\" aria-label=\"{n} of 24 bricks laid\">\n  {#each [0, 1, 2, 3] as r}\n    <div class=\"bk-wall__row\" class:is-odd={r % 2 === 1}>\n      {#each [0, 1, 2, 3, 4, 5] as c}\n        <span class:is-on={r * 6 + c < n}></span>\n      {/each}\n    </div>\n  {/each}\n</div>\n<div class=\"bk-row\">\n  <Button size=\"sm\" icon=\"plus\" disabled={n >= 24} onclick={() => (n += 1)}>Lay brick</Button>\n  <Button size=\"sm\" onclick={() => (n = 0)}>Reset</Button>\n  {#if n >= 24}\n    <Badge>Wall done!</Badge>\n  {:else}\n    <span>{n}/24</span>\n  {/if}\n</div>\n",
+      "type": "registry:ui",
+      "target": "wall-builder.svelte"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "data-table",
+  "type": "registry:ui",
+  "title": "Data table",
+  "description": "Orange header table.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    head: string[];\n    rows: string[][];\n  }\n  let { head, rows }: Props = $props();\n</script>\n\n<div class=\"bk-table-wrap bk-cut\">\n  <table class=\"bk-table\">\n    <thead><tr>{#each head as c}<th>{c}</th>{/each}</tr></thead>\n    <tbody>\n      {#each rows as r}<tr>{#each r as c}<td>{c}</td>{/each}</tr>{/each}\n    </tbody>\n  </table>\n</div>\n",
+      "type": "registry:ui",
+      "target": "data-table.svelte"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "launch-pad",
+  "type": "registry:ui",
+  "title": "Launch pad",
+  "description": "Sky box with flying rocket.",
+  "registryDependencies": [
+    "./button.json",
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import Button from \"./button.svelte\";\n\n  let fly = $state(false);\n</script>\n\n<div class=\"bk-sky bk-cut\" aria-hidden=\"true\">\n  <span class=\"bk-rocket\" class:is-fly={fly}><PixelIcon name=\"rocket\" /></span>\n</div>\n<Button\n  size=\"sm\"\n  icon=\"rocket\"\n  disabled={fly}\n  onclick={() => {\n    fly = true;\n    setTimeout(() => (fly = false), 1500);\n  }}>Launch</Button\n>\n",
+      "type": "registry:ui",
+      "target": "launch-pad.svelte"
+    }
+  ]
+}

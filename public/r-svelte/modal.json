@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "modal",
+  "type": "registry:ui",
+  "title": "Modal",
+  "description": "Overlay dialog. See also sheet, drawer, alert-dialog.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    title: string;\n    open?: boolean;\n    onClose?: () => void;\n    children: Snippet;\n  }\n  let { title, open = $bindable(false), onClose, children }: Props = $props();\n\n  function close() {\n    open = false;\n    onClose?.();\n  }\n\n  $effect(() => {\n    if (!open) return;\n    const esc = (e: KeyboardEvent) => {\n      if (e.key === \"Escape\") close();\n    };\n    document.addEventListener(\"keydown\", esc);\n    return () => document.removeEventListener(\"keydown\", esc);\n  });\n</script>\n\n{#if open}\n  <div class=\"bk-overlay\" onclick={close} onkeydown={(e) => e.key === \"Escape\" && close()} role=\"presentation\">\n    <div\n      class=\"bk-modal bk-cut\"\n      role=\"dialog\"\n      tabindex={-1}\n      aria-modal=\"true\"\n      aria-label={title}\n      onclick={(e) => e.stopPropagation()}\n      onkeydown={(e) => e.stopPropagation()}\n    >\n      <header class=\"bk-card__head bk-modal__head\">\n        {title}\n        <button type=\"button\" aria-label=\"Close\" class=\"bk-x\" onclick={close}>\n          <PixelIcon name=\"close\" />\n        </button>\n      </header>\n      <div class=\"bk-card__body\">\n        {@render children()}\n      </div>\n    </div>\n  </div>\n{/if}\n",
+      "type": "registry:ui",
+      "target": "modal.svelte"
+    }
+  ]
+}

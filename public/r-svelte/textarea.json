@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "textarea",
+  "type": "registry:ui",
+  "title": "Textarea",
+  "description": "Sunken multiline field.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    value?: string;\n    class?: string;\n    [key: string]: unknown;\n  }\n  let { value = $bindable(\"\"), class: cls = \"\", ...rest }: Props = $props();\n</script>\n\n<textarea bind:value class={cn(\"bk-input bk-cut\", cls)} {...rest}></textarea>\n",
+      "type": "registry:ui",
+      "target": "textarea.svelte"
+    }
+  ]
+}

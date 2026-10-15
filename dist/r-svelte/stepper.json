@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "stepper",
+  "type": "registry:ui",
+  "title": "Stepper",
+  "description": "Numbered steps with connectors.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    steps: string[];\n    current?: number;\n  }\n  let { steps, current = 0 }: Props = $props();\n</script>\n\n<ol class=\"bk-steps\">\n  {#each steps as s, i}\n    {@const st = i < current ? \"done\" : i === current ? \"now\" : \"todo\"}\n    <li class=\"bk-step bk-step--{st}\" aria-current={st === \"now\" ? \"step\" : undefined}>\n      <span class=\"bk-step__box bk-cut\">\n        {#if st === \"done\"}\n          <PixelIcon name=\"check\" />\n        {:else}\n          {i + 1}\n        {/if}\n      </span>\n      <span>{s}</span>\n    </li>\n    {#if i < steps.length - 1}\n      <li aria-hidden=\"true\" class=\"bk-step__line\" class:is-done={i < current}></li>\n    {/if}\n  {/each}\n</ol>\n",
+      "type": "registry:ui",
+      "target": "stepper.svelte"
+    }
+  ]
+}

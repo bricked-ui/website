@@ -1,0 +1,18 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "dice",
+  "type": "registry:ui",
+  "title": "Dice",
+  "description": "Rollable 72px die.",
+  "registryDependencies": [
+    "./button.json",
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import Button from \"./button.svelte\";\n\n  const PIPS: Record<number, number[]> = {\n    1: [4],\n    2: [0, 8],\n    3: [0, 4, 8],\n    4: [0, 2, 6, 8],\n    5: [0, 2, 4, 6, 8],\n    6: [0, 2, 3, 5, 6, 8]\n  };\n\n  let face = $state(5);\n  let rolling = $state(false);\n\n  function roll() {\n    rolling = true;\n    let k = 0;\n    const t = setInterval(() => {\n      face = 1 + Math.floor(Math.random() * 6);\n      if (++k >= 8) {\n        clearInterval(t);\n        rolling = false;\n      }\n    }, 90);\n  }\n</script>\n\n<div class=\"bk-row\">\n  <div class=\"bk-die bk-cut\" role=\"img\" aria-label=\"Die showing {face}\">\n    {#each Array.from({ length: 9 }, (_, i) => i) as i}\n      <span class:is-on={PIPS[face].includes(i)}></span>\n    {/each}\n  </div>\n  <Button size=\"sm\" disabled={rolling} onclick={roll}>Roll</Button>\n  <span>You got {face}</span>\n</div>\n",
+      "type": "registry:ui",
+      "target": "dice.svelte"
+    }
+  ]
+}

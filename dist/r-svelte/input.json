@@ -1,0 +1,22 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "Sunken field input plus search and date variants.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    value?: string;\n    placeholder?: string;\n    id?: string;\n    type?: string;\n    class?: string;\n    oninput?: (e: Event & { currentTarget: HTMLInputElement }) => void;\n    [key: string]: unknown;\n  }\n  let { value = $bindable(\"\"), class: cls = \"\", ...rest }: Props = $props();\n</script>\n\n<input bind:value class={cn(\"bk-input bk-cut\", cls)} {...rest} />\n",
+      "type": "registry:ui",
+      "target": "input.svelte"
+    },
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    id?: string;\n    value?: string;\n    placeholder?: string;\n  }\n  let { id, value = $bindable(\"\"), placeholder = \"Search\", ...rest }: Props = $props();\n</script>\n\n<div class=\"bk-search\">\n  <input {id} type=\"search\" bind:value class=\"bk-input bk-cut\" {placeholder} {...rest} />\n  <PixelIcon name=\"search\" />\n</div>\n",
+      "type": "registry:ui",
+      "target": "search-input.svelte"
+    }
+  ]
+}

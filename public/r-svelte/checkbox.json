@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "28px sunken box, orange when checked.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    checked?: boolean;\n    label?: string | Snippet;\n    [key: string]: unknown;\n  }\n  let { checked = $bindable(false), label, ...rest }: Props = $props();\n</script>\n\n<label class=\"bk-check\">\n  <input type=\"checkbox\" bind:checked {...rest} />\n  <span class=\"bk-check__box bk-cut\"><PixelIcon name=\"check\" /></span>\n  {#if typeof label === \"string\"}\n    {label}\n  {:else if label}\n    {@render label()}\n  {/if}\n</label>\n",
+      "type": "registry:ui",
+      "target": "checkbox.svelte"
+    }
+  ]
+}

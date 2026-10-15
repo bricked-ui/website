@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "divider",
+  "type": "registry:ui",
+  "title": "Divider",
+  "description": "Pixel dashed divider with label.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    class?: string;\n    children: Snippet;\n  }\n  let { class: cls = \"\", children, ...rest }: Props = $props();\n</script>\n\n<div class={cn(\"bk-divider\", cls)} role=\"separator\" {...rest}>\n  {@render children()}\n</div>\n",
+      "type": "registry:ui",
+      "target": "divider.svelte"
+    }
+  ]
+}

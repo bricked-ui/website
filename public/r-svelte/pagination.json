@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "pagination",
+  "type": "registry:ui",
+  "title": "Pagination",
+  "description": "Page buttons with prev/next.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    page?: number;\n    total?: number;\n    onChange?: (n: number) => void;\n  }\n  let { page = $bindable(1), total = 5, onChange }: Props = $props();\n\n  function go(n: number) {\n    page = n;\n    onChange?.(n);\n  }\n</script>\n\n<nav class=\"bk-pages\" aria-label=\"Pagination\">\n  <button type=\"button\" aria-label=\"Previous page\" class=\"bk-page bk-cut\" disabled={page <= 1} onclick={() => go(page - 1)}>\n    <PixelIcon name=\"left\" />\n  </button>\n  {#each Array.from({ length: total }, (_, i) => i + 1) as n}\n    <button\n      type=\"button\"\n      aria-current={n === page ? \"page\" : undefined}\n      class=\"bk-page bk-cut\"\n      class:is-on={n === page}\n      onclick={() => go(n)}\n    >\n      {n}\n    </button>\n  {/each}\n  <button type=\"button\" aria-label=\"Next page\" class=\"bk-page bk-cut\" disabled={page >= total} onclick={() => go(page + 1)}>\n    <PixelIcon name=\"right\" />\n  </button>\n</nav>\n",
+      "type": "registry:ui",
+      "target": "pagination.svelte"
+    }
+  ]
+}

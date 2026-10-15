@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "switch",
+  "type": "registry:ui",
+  "title": "Switch",
+  "description": "Off/On two-half track switch plus single toggle.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    checked?: boolean;\n    label?: string;\n    onChange?: (v: boolean) => void;\n  }\n  let { checked = $bindable(false), label = \"Switch\", onChange }: Props = $props();\n\n  function toggle() {\n    checked = !checked;\n    onChange?.(checked);\n  }\n</script>\n\n<button\n  type=\"button\"\n  role=\"switch\"\n  aria-checked={checked}\n  aria-label={label}\n  class=\"bk-switch bk-cut\"\n  onclick={toggle}\n>\n  <span class=\"bk-switch__opt {!checked ? 'is-on' : ''}\">Off</span>\n  <span class=\"bk-switch__opt {checked ? 'is-on' : ''}\">On</span>\n</button>\n",
+      "type": "registry:ui",
+      "target": "switch.svelte"
+    }
+  ]
+}

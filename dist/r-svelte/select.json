@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:ui",
+  "title": "Select",
+  "description": "Native select plus styled native-select variant.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    value?: string;\n    options: string[];\n    class?: string;\n    onchange?: (v: string) => void;\n  }\n  let { value = $bindable(\"\"), options, class: cls = \"\", onchange, ...rest }: Props = $props();\n</script>\n\n<div class=\"bk-select\">\n  <select\n    bind:value\n    class={cn(\"bk-input bk-cut\", cls)}\n    onchange={(e) => onchange?.(e.currentTarget.value)}\n    {...rest}\n  >\n    {#each options as o}\n      <option value={o}>{o}</option>\n    {/each}\n  </select>\n  <PixelIcon name=\"down\" />\n</div>\n",
+      "type": "registry:ui",
+      "target": "select.svelte"
+    }
+  ]
+}

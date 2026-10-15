@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "like-button",
+  "type": "registry:ui",
+  "title": "Like button",
+  "description": "Field-surface like with heart burst and count.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  let on = $state(false);\n  let n = $state(12);\n</script>\n\n<button\n  type=\"button\"\n  aria-pressed={on}\n  class=\"bk-like\"\n  class:is-on={on}\n  onclick={() => {\n    on = !on;\n    n += on ? 1 : -1;\n  }}\n>\n  <PixelIcon name=\"heart\" />\n  {n}\n  {#if on}\n    <span class=\"bk-burst\" aria-hidden=\"true\">\n      {#each [0, 1, 2, 3] as i}<span></span>{/each}\n    </span>\n  {/if}\n</button>\n",
+      "type": "registry:ui",
+      "target": "like-button.svelte"
+    }
+  ]
+}

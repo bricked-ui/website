@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "progress",
+  "type": "registry:ui",
+  "title": "Progress",
+  "description": "Segmented bar plus square ring gauge.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    value?: number;\n  }\n  let { value = 50 }: Props = $props();\n</script>\n\n<div\n  class=\"bk-progress bk-cut\"\n  role=\"progressbar\"\n  aria-valuemin={0}\n  aria-valuemax={100}\n  aria-valuenow={value}\n>\n  <div class=\"bk-progress__fill\" style=\"width: {value}%\"></div>\n</div>\n",
+      "type": "registry:ui",
+      "target": "progress.svelte"
+    }
+  ]
+}

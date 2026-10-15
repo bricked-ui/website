@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "clock",
+  "type": "registry:ui",
+  "title": "Clock",
+  "description": "Live 24h dark clock.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import { onMount } from \"svelte\";\n\n  let t = $state(new Date());\n  let timer: ReturnType<typeof setInterval>;\n\n  onMount(() => {\n    timer = setInterval(() => (t = new Date()), 1000);\n    return () => clearInterval(timer);\n  });\n</script>\n\n<div class=\"bk-clock bk-cut\" role=\"timer\">\n  {t.toLocaleTimeString([], { hour: \"2-digit\", minute: \"2-digit\", second: \"2-digit\", hour12: false })}\n</div>\n",
+      "type": "registry:ui",
+      "target": "clock.svelte"
+    }
+  ]
+}

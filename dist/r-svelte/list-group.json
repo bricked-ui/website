@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "list-group",
+  "type": "registry:ui",
+  "title": "List group",
+  "description": "Selectable field list.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    items: string[];\n    value?: string;\n    onChange?: (it: string) => void;\n  }\n  let { items, value = $bindable(items[0]), onChange }: Props = $props();\n</script>\n\n<ul class=\"bk-list\">\n  {#each items as it}\n    <li>\n      <button\n        type=\"button\"\n        aria-pressed={it === value}\n        class=\"bk-list__btn bk-cut\"\n        onclick={() => {\n          value = it;\n          onChange?.(it);\n        }}>{it}</button\n      >\n    </li>\n  {/each}\n</ul>\n",
+      "type": "registry:ui",
+      "target": "list-group.svelte"
+    }
+  ]
+}

@@ -20,8 +20,9 @@
 }
 
 /* Legacy kit variables resolve to the theme above. --page-bg/--page-ink
-   are the ONLY surface ink flips with data-theme: component surfaces
-   (peach cards, field inputs) stay identical in both modes by design. */
+   are page chrome; --field/--peach/--peach-deep/--muted are component
+   surfaces and DO flip in dark mode so cards, inputs, tabs and tables
+   follow the toggle. Orange brand surfaces keep ink text in both modes. */
 :root {
   color-scheme: light;
   box-sizing: border-box;
@@ -34,14 +35,26 @@
   --orange: var(--color-brick);
   --field: var(--color-field);
   --peach: var(--color-peach);
+  --peach-deep: var(--color-peach-deep);
+  --muted: var(--color-muted);
   --bricks: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8' preserveAspectRatio='none' shape-rendering='crispEdges'%3E%3Cg fill='%23a24a00' fill-opacity='.3'%3E%3Crect width='16' height='1'/%3E%3Crect y='4' width='16' height='1'/%3E%3Crect width='1' height='4'/%3E%3Crect x='8' y='4' width='1' height='4'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Explicit dark, e.g. set by the theme toggle. */
+/* Explicit dark, e.g. set by the theme toggle. Light surfaces deepen so
+   they stay readable on the dark page; text on them flips to on-dark.
+   Orange faces + ink text are untouched by design. */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --page-bg: #1c1410;
   --page-ink: var(--color-on-dark);
+  --field: #2e1d0e;
+  --peach: #38220f;
+  --peach-deep: #4e3315;
+  --muted: #d0a06a;
+  --color-field: #2e1d0e;
+  --color-peach: #38220f;
+  --color-peach-deep: #4e3315;
+  --color-muted: #d0a06a;
 }
 
 /* Auto mode: no data-theme attribute, follow the OS. */
@@ -50,6 +63,14 @@
     color-scheme: dark;
     --page-bg: #1c1410;
     --page-ink: var(--color-on-dark);
+    --field: #2e1d0e;
+    --peach: #38220f;
+    --peach-deep: #4e3315;
+    --muted: #d0a06a;
+    --color-field: #2e1d0e;
+    --color-peach: #38220f;
+    --color-peach-deep: #4e3315;
+    --color-muted: #d0a06a;
   }
 }
 
@@ -63,7 +84,7 @@ body {
 }
 body {
   background: var(--page-bg);
-  color: var(--ink);
+  color: var(--page-ink);
 }
 
 @utility bk-cut {
@@ -200,7 +221,7 @@ body {
   .bricked-icon { display: block; flex: none; width: calc(var(--icon, 4px) * 7); height: calc(var(--icon, 4px) * 7); }
 
 
-  .bk-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; width: min(100%, 880px); font-family: 'VT323', ui-monospace, monospace; font-size: 20px; color: var(--ink); }
+  .bk-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; width: min(100%, 880px); font-family: 'VT323', ui-monospace, monospace; font-size: 20px; color: var(--page-ink); }
   .bk-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
   .bk-stack { display: flex; flex-direction: column; gap: 16px; }
 
@@ -214,7 +235,7 @@ body {
   .bk-field { display: flex; flex-direction: column; gap: 8px; }
   .bk-label { font: 10px 'Press Start 2P', monospace; }
   .bk-input { box-sizing: border-box; width: 100%; min-height: 48px; padding: 10px 16px; font: 22px 'VT323', ui-monospace, monospace; color: var(--ink); background: var(--field); border: 0; border-radius: 0; box-shadow: inset 4px 4px 0 var(--shade); }
-  .bk-input::placeholder { color: #9a6a3c; }
+  .bk-input::placeholder { color: var(--muted); }
   .bk-input:focus-visible { outline: none; box-shadow: inset 0 0 0 4px var(--orange), inset 4px 4px 0 4px var(--shade); }
   textarea.bk-input { min-height: 96px; resize: vertical; }
   .bk-select { --icon: 3px; position: relative; }
@@ -235,7 +256,7 @@ body {
   /* switch */
   .bk-switch { display: inline-flex; padding: 0; border: 0; border-radius: 0; cursor: pointer; background: var(--shade); font: 10px 'Press Start 2P', monospace; line-height: 1; }
   .bk-switch__opt { display: grid; place-items: center; box-sizing: border-box; min-width: 48px; height: 32px; padding: 0 12px; color: var(--field); }
-  .bk-switch__opt.is-on { color: var(--ink); background: var(--orange) var(--bricks) center / 36px 18px; box-shadow: inset -3px -3px 0 #a24a00; }
+  .bk-switch__opt.is-on { color: var(--ink); background: var(--orange) var(--bricks) center / 36px 18px; box-shadow: inset -3px -3px 0 var(--color-deep); }
   .bk-switch:hover .bk-switch__opt:not(.is-on) { color: #fff; }
   .bk-switch:focus-visible { outline: none; }
   .bk-switch:focus-visible .bk-switch__opt.is-on { box-shadow: inset 0 0 0 3px var(--ink); }
@@ -262,7 +283,7 @@ body {
 
   /* tabs */
   .bk-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
-  .bk-tab { --cut: 1px; height: 36px; padding: 0 14px; border: 0; border-radius: 0; cursor: pointer; font: 10px 'Press Start 2P', monospace; color: var(--ink); background: #f1b97c; }
+  .bk-tab { --cut: 1px; height: 36px; padding: 0 14px; border: 0; border-radius: 0; cursor: pointer; font: 10px 'Press Start 2P', monospace; color: var(--ink); background: var(--peach-deep); }
   .bk-tab[aria-selected="true"] { background: var(--orange) var(--bricks) center / 36px 18px; box-shadow: inset -3px -3px 0 var(--shade); }
   .bk-tab:focus-visible { outline: none; box-shadow: inset 0 0 0 3px var(--ink); }
   .bk-panel { --cut: 2px; padding: 16px 20px; background: var(--field); box-shadow: inset 4px 4px 0 var(--shade); line-height: 1.2; }
@@ -309,7 +330,7 @@ body {
 
   /* pagination */
   .bk-pages { --icon: 3px; display: flex; flex-wrap: wrap; gap: 4px; }
-  .bk-page { --cut: 1px; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 0; cursor: pointer; font: 10px 'Press Start 2P', monospace; color: var(--ink); background: #f1b97c; }
+  .bk-page { --cut: 1px; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 0; cursor: pointer; font: 10px 'Press Start 2P', monospace; color: var(--ink); background: var(--peach-deep); }
   .bk-page.is-on { background: var(--orange) var(--bricks) center / 36px 18px; box-shadow: inset -3px -3px 0 var(--shade); }
   .bk-page:disabled { opacity: .4; cursor: not-allowed; }
   .bk-page:focus-visible { outline: none; box-shadow: inset 0 0 0 3px var(--ink); }
@@ -326,7 +347,7 @@ body {
   .bk-step__box { --cut: 2px; display: grid; place-items: center; width: 32px; height: 32px; font: 10px 'Press Start 2P', monospace; background: var(--field); box-shadow: inset 4px 4px 0 var(--shade); }
   .bk-step--done .bk-step__box { background: var(--orange); box-shadow: inset -3px -3px 0 var(--shade); }
   .bk-step--now .bk-step__box { background: var(--orange) var(--bricks) center / 36px 18px; box-shadow: inset -3px -3px 0 var(--shade); }
-  .bk-step--todo { color: #9a6a3c; }
+  .bk-step--todo { color: var(--muted); }
   .bk-step__line { flex: 1; height: 4px; margin-top: 14px; background: var(--shade); opacity: .4; }
   .bk-step__line.is-done { opacity: 1; }
 
@@ -373,7 +394,7 @@ body {
   .bk-key { --cut: 1px; min-width: 32px; box-sizing: border-box; padding: 6px 10px 10px; text-align: center; font: 10px 'Press Start 2P', monospace; color: var(--ink); background: var(--field); box-shadow: inset -4px -4px 0 var(--shade); }
 
   .bk-skel-row { display: flex; gap: 16px; align-items: center; }
-  .bk-skel { background: #f1b97c; animation: bk-pulse 1s steps(2) infinite; }
+  .bk-skel { background: var(--peach-deep); animation: bk-pulse 1s steps(2) infinite; }
   .bk-skel--box { --cut: 2px; flex: none; width: 48px; height: 48px; }
   .bk-skel-lines { display: flex; flex: 1; flex-direction: column; gap: 8px; }
   .bk-skel-lines .bk-skel { height: 12px; }
@@ -388,7 +409,7 @@ body {
   .bk-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
   .bk-cal__dow { font: 9px 'Press Start 2P', monospace; color: var(--shade); padding-bottom: 4px; }
   .bk-day { padding: 4px 0 6px; border: 0; border-radius: 0; cursor: pointer; font: 20px 'VT323', ui-monospace, monospace; color: var(--ink); background: transparent; }
-  .bk-day:hover { background: #f1b97c; }
+  .bk-day:hover { background: var(--peach-deep); }
   .bk-day.is-on { background: var(--orange) var(--bricks) center / 36px 18px; box-shadow: inset -3px -3px 0 var(--shade); }
   .bk-day:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
 
@@ -472,7 +493,7 @@ body {
   .bk-side__head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--orange) var(--bricks) center / 36px 18px; font: 10px 'Press Start 2P', monospace; line-height: 1.4; color: var(--ink); }
   .bk-side__body { display: flex; flex-direction: column; gap: 4px; padding: 12px; flex: 1; }
   .bk-side__foot { padding: 12px 16px 16px; font-size: 18px; }
-  .bk-rail { --cut: 2px; --icon: 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px; background: var(--ink); box-shadow: inset -4px -4px 0 #000; color: var(--ink); }
+  .bk-rail { --cut: 2px; --icon: 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 8px; background: var(--ink); box-shadow: inset -4px -4px 0 #000; color: var(--color-on-dark); }
   .bk-rail .bk-ibtn { width: 40px; height: 40px; }
 
   /* ---- text hardening: light-surface copy always pins ink ---- */
@@ -506,6 +527,136 @@ body {
   .bk-overlay[hidden],
   .bk-menu__list[hidden] {
     display: none !important;
+  }
+
+  /* ---- dark mode: light surfaces deepen (see :root overrides above), so
+     copy sitting on them flips to on-dark. Orange faces, dark surfaces,
+     and anything already on-dark are untouched. Caret uses page ink so it
+     stays visible on the page background. ---- */
+  :root[data-theme="dark"] .bk-card,
+  :root[data-theme="dark"] .bk-input,
+  :root[data-theme="dark"] .bk-check,
+  :root[data-theme="dark"] .bk-label,
+  :root[data-theme="dark"] .bk-empty,
+  :root[data-theme="dark"] .bk-drop,
+  :root[data-theme="dark"] .bk-cal,
+  :root[data-theme="dark"] .bk-cal__title,
+  :root[data-theme="dark"] .bk-meter__label,
+  :root[data-theme="dark"] .bk-tl__title,
+  :root[data-theme="dark"] .bk-tl li,
+  :root[data-theme="dark"] .bk-divider,
+  :root[data-theme="dark"] .bk-type,
+  :root[data-theme="dark"] .bk-count__val,
+  :root[data-theme="dark"] .bk-chip,
+  :root[data-theme="dark"] .bk-acc__body,
+  :root[data-theme="dark"] .bk-acc__btn,
+  :root[data-theme="dark"] .bk-panel,
+  :root[data-theme="dark"] .bk-crumbs__item,
+  :root[data-theme="dark"] .bk-modal .bk-card__body p,
+  :root[data-theme="dark"] .bk-side,
+  :root[data-theme="dark"] .bk-key,
+  :root[data-theme="dark"] .bk-list__btn,
+  :root[data-theme="dark"] .bk-day,
+  :root[data-theme="dark"] .bk-table td,
+  :root[data-theme="dark"] .bk-tab,
+  :root[data-theme="dark"] .bk-page,
+  :root[data-theme="dark"] .bk-like {
+    color: var(--color-on-dark);
+  }
+  :root[data-theme="dark"] .bk-crumbs a,
+  :root[data-theme="dark"] .bk-input,
+  :root[data-theme="dark"] .bk-day,
+  :root[data-theme="dark"] .bk-tab,
+  :root[data-theme="dark"] .bk-page,
+  :root[data-theme="dark"] .bk-key,
+  :root[data-theme="dark"] .bk-list__btn {
+    color: var(--color-on-dark);
+  }
+  :root[data-theme="dark"] .bk-crumbs a:hover {
+    color: var(--color-brick);
+  }
+  :root[data-theme="dark"] .bk-caret {
+    background: var(--color-on-dark);
+  }
+  :root[data-theme="dark"] .bk-step--todo {
+    color: var(--muted);
+  }
+  :root[data-theme="dark"] .bk-table td {
+    border-top-color: var(--peach);
+  }
+  /* Selected = orange face, so text stays ink even in dark mode. */
+  :root[data-theme="dark"] .bk-tab[aria-selected="true"],
+  :root[data-theme="dark"] .bk-page.is-on,
+  :root[data-theme="dark"] .bk-day.is-on,
+  :root[data-theme="dark"] .bk-list__btn[aria-pressed="true"] {
+    color: var(--color-ink);
+  }
+  /* Like + rating sit on deepened/transient surfaces: brighten the idle
+     glyphs and use orange (not ink) for rated stars so they read on dark. */
+  :root[data-theme="dark"] .bk-like .bricked-icon {
+    color: var(--color-brick-hover);
+    opacity: 0.75;
+  }
+  :root[data-theme="dark"] .bk-rate button {
+    color: rgba(255, 154, 61, 0.55);
+  }
+  :root[data-theme="dark"] .bk-rate button.is-on {
+    color: var(--color-brick);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-card,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-input,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-check,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-label,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-empty,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-drop,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-cal,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-cal__title,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-meter__label,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-tl__title,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-tl li,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-divider,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-type,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-count__val,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-chip,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-acc__body,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-acc__btn,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-panel,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-crumbs__item,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-modal .bk-card__body p,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-side,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-key,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-list__btn,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-day,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-table td,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-tab,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-page,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-like,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-crumbs a {
+      color: var(--color-on-dark);
+    }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-caret {
+      background: var(--color-on-dark);
+    }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-table td {
+      border-top-color: var(--peach);
+    }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-tab[aria-selected="true"],
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-page.is-on,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-day.is-on,
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-list__btn[aria-pressed="true"] {
+      color: var(--color-ink);
+    }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-like .bricked-icon {
+      color: var(--color-brick-hover);
+      opacity: 0.75;
+    }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-rate button {
+      color: rgba(255, 154, 61, 0.55);
+    }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) .bk-rate button.is-on {
+      color: var(--color-brick);
+    }
   }
 }
 

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "fortune",
+  "type": "registry:ui",
+  "title": "Ask the wall",
+  "description": "Random answer box.",
+  "registryDependencies": [
+    "./button.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import Button from \"./button.svelte\";\n\n  const ANSWERS = [\n    \"Lay one more brick.\",\n    \"Ask again after a snack.\",\n    \"Yes, build it.\",\n    \"The wall says no.\",\n    \"Take a break first.\",\n    \"Orange is always right.\"\n  ];\n  let a = $state(\"Ask me anything.\");\n</script>\n\n<div class=\"bk-answer bk-cut\" aria-live=\"polite\">{a}</div>\n<div class=\"bk-row\">\n  <Button size=\"sm\" icon=\"star\" onclick={() => (a = ANSWERS[Math.floor(Math.random() * ANSWERS.length)])}>\n    Ask\n  </Button>\n</div>\n",
+      "type": "registry:ui",
+      "target": "fortune.svelte"
+    }
+  ]
+}

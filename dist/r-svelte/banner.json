@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "banner",
+  "type": "registry:ui",
+  "title": "Banner",
+  "description": "Orange announcement bar.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    class?: string;\n    onclose?: () => void;\n    children: Snippet;\n  }\n  let { class: cls = \"\", onclose, children, ...rest }: Props = $props();\n</script>\n\n<div class={cn(\"bk-banner bk-cut\", cls)} role=\"status\" {...rest}>\n  <PixelIcon name=\"star\" />\n  <span>{@render children()}</span>\n  {#if onclose}\n    <button type=\"button\" aria-label=\"Dismiss\" class=\"bk-x\" onclick={onclose}>\n      <PixelIcon name=\"close\" />\n    </button>\n  {/if}\n</div>\n",
+      "type": "registry:ui",
+      "target": "banner.svelte"
+    }
+  ]
+}

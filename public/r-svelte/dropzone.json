@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "dropzone",
+  "type": "registry:ui",
+  "title": "Dropzone",
+  "description": "File drop label plus compact file input.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    filename?: string;\n    onPick?: (name: string) => void;\n  }\n  import PixelIcon from \"./pixel-icon.svelte\";\n  let { filename = $bindable(\"\"), onPick }: Props = $props();\n</script>\n\n<label class=\"bk-drop bk-cut\">\n  <input\n    type=\"file\"\n    onchange={(e) => {\n      const f = e.currentTarget.files?.[0]?.name ?? \"\";\n      filename = f;\n      onPick?.(f);\n    }}\n  />\n  <PixelIcon name=\"upload\" />\n  <span>{filename || \"Choose a file\"}</span>\n</label>\n",
+      "type": "registry:ui",
+      "target": "dropzone.svelte"
+    }
+  ]
+}

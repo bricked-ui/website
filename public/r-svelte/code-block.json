@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "code-block",
+  "type": "registry:ui",
+  "title": "Code block",
+  "description": "Dark code with keyword/string tinting.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    code: string;\n    class?: string;\n  }\n  // Tiny highlighter: keywords orange, strings accent. Keeps it dependency-free like React version.\n  let { code, class: cls = \"\" }: Props = $props();\n\n  function highlight(src: string): string {\n    const esc = src.replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\");\n    return esc\n      .replace(/(&quot;.*?&quot;|\"[^\"]*\"|'[^']*')/g, '<span class=\"bk-code__s\">$1</span>')\n      .replace(\n        /\\b(const|let|var|function|return|import|from|export|build|if|else|for|while)\\b/g,\n        '<span class=\"bk-code__k\">$1</span>'\n      );\n  }\n</script>\n\n<pre class={cn(\"bk-code bk-cut\", cls)}><code>{@html highlight(code)}</code></pre>\n",
+      "type": "registry:ui",
+      "target": "code-block.svelte"
+    }
+  ]
+}

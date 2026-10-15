@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "chips",
+  "type": "registry:ui",
+  "title": "Chips",
+  "description": "Removable field tags.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    items: string[];\n    value?: string[];\n    onRemove?: (t: string) => void;\n  }\n  let { items = $bindable([]), onRemove }: Props = $props();\n\n  function remove(t: string) {\n    items = items.filter((x) => x !== t);\n    onRemove?.(t);\n  }\n</script>\n\n<div class=\"bk-chips\">\n  {#if items.length === 0}\n    <span>No tags left</span>\n  {:else}\n    {#each items as t (t)}\n      <span class=\"bk-chip bk-cut\">\n        {t}\n        <button type=\"button\" aria-label=\"Remove {t}\" class=\"bk-x\" onclick={() => remove(t)}>\n          <PixelIcon name=\"close\" />\n        </button>\n      </span>\n    {/each}\n  {/if}\n</div>\n",
+      "type": "registry:ui",
+      "target": "chips.svelte"
+    }
+  ]
+}

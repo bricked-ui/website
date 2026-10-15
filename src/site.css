@@ -66,6 +66,9 @@
   align-items: center;
   gap: 8px;
 }
+:root[data-theme="dark"] .nav__links a:not([aria-current="page"]) {
+  color: var(--color-on-dark);
+}
 .nav__links a[aria-current="page"] {
   background: var(--ink);
   color: var(--orange);
@@ -85,6 +88,15 @@
   padding: 8px 10px 10px;
   cursor: pointer;
   box-shadow: inset -3px -3px 0 var(--shade);
+}
+:root[data-theme="dark"] .theme-toggle button:not(.is-on) {
+  color: var(--color-on-dark);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .nav__links a:not([aria-current="page"]),
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .theme-toggle button:not(.is-on) {
+    color: var(--color-on-dark);
+  }
 }
 .theme-toggle button.is-on {
   color: var(--ink);
@@ -421,7 +433,10 @@ table.doc td {
   padding: 8px 12px;
   border-top: 4px solid var(--peach);
   vertical-align: top;
-  color: var(--ink);
+  color: var(--page-ink);
+}
+:root[data-theme="dark"] table.doc td {
+  border-top-color: var(--peach);
 }
 table.doc td:first-child {
   font-family: "Press Start 2P", monospace;

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "Pulsing box plus lines.",
+  "files": [
+    {
+      "content": "<span class=\"bk-skel-row\" aria-hidden=\"true\">\n  <span class=\"bk-skel bk-skel--box bk-cut\"></span>\n  <span class=\"bk-skel-lines\">\n    <span class=\"bk-skel\" style=\"width: 100%\"></span>\n    <span class=\"bk-skel\" style=\"width: 80%\"></span>\n    <span class=\"bk-skel\" style=\"width: 55%\"></span>\n  </span>\n</span>\n",
+      "type": "registry:ui",
+      "target": "skeleton.svelte"
+    }
+  ]
+}

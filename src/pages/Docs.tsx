@@ -385,6 +385,77 @@ export function Docs() {
                     is the full <code>bk-*</code> stylesheet. Import both in
                     your CSS entry.
                   </p>
+                  <h3>Svelte — same bricks, runes inside</h3>
+                  <p>
+                    The Svelte 5 port lives at <code>ui/svelte</code> in the
+                    repo and ships as a shadcn-svelte registry (50 items) at{" "}
+                    <code>/r-svelte/</code> — the exact counterpart of{" "}
+                    <code>/r/</code> for React. Same <code>bk-*</code> classes
+                    and dark-mode behavior, Svelte runes for state —{" "}
+                    <code>bind:value</code>, <code>bind:checked</code>,{" "}
+                    <code>bind:open</code> — and snippets for children.
+                  </p>
+                  <h3>1 · Init shadcn-svelte (once per project)</h3>
+                  <p>
+                    This creates <code>$lib/utils.ts</code> (the{" "}
+                    <code>cn</code> helper our components import) and your{" "}
+                    <code>components.json</code> aliases.
+                  </p>
+                  <InstallSnippet
+                    build={(run) =>
+                      `${run} shadcn-svelte@latest init`
+                    }
+                  />
+                  <h3>2 · Add a component</h3>
+                  <InstallSnippet
+                    build={(run) =>
+                      `${run} shadcn-svelte@latest add https://bricked-ui.vercel.app/r-svelte/button.json`
+                    }
+                  />
+                  <p>
+                    That drops <code>button.svelte</code> (+{" "}
+                    <code>icon-button.svelte</code>) into{" "}
+                    <code>$lib/components/ui</code> and pulls{" "}
+                    <code>pixel-icon</code> automatically. Use it:
+                  </p>
+                  <CodeBlock
+                    text={`<script>\n  import Button from "$lib/components/ui/button.svelte";\n</script>\n\n<Button icon="rocket">Launch</Button>`}
+                  >
+                    &lt;script&gt;
+                    <br />
+                    &nbsp;&nbsp;import Button from
+                    &quot;$lib/components/ui/button.svelte&quot;;
+                    <br />
+                    &lt;/script&gt;
+                    <br />
+                    <br />
+                    &lt;Button
+                    icon=&quot;rocket&quot;&gt;Launch&lt;/Button&gt;
+                  </CodeBlock>
+                  <h3>3 · Add the styles</h3>
+                  <InstallSnippet
+                    build={(run) =>
+                      `${run} shadcn-svelte@latest add https://bricked-ui.vercel.app/r-svelte/bricked-css.json`
+                    }
+                  />
+                  <p>
+                    Then import it in <code>src/app.css</code> (it installs to{" "}
+                    <code>$lib/bricked.css</code>) and add the pixel fonts:
+                  </p>
+                  <CodeBlock
+                    text={`@import "$lib/bricked.css";\n\n/* layout head: Press Start 2P + VT323 from Google Fonts */`}
+                  >
+                    @import &quot;$lib/bricked.css&quot;;
+                  </CodeBlock>
+                  <p>
+                    Prefer npm? <code>ui/svelte</code> is also the{" "}
+                    <code>bricked-ui-svelte</code> package (
+                    <code>bun add bricked-ui-svelte</code>) with the same
+                    components. Registry sources stay in sync via{" "}
+                    <code>bun run gen-registry</code> +{" "}
+                    <code>bun run registry:build</code> in{" "}
+                    <code>ui/svelte</code>.
+                  </p>
                 </section>
 
                 <section className="section" id="usage">
@@ -470,6 +541,20 @@ export function Docs() {
                   <p>
                     Every bevel, brick fill and selected state follows, because
                     they all read the tokens.
+                  </p>
+                  <h3>Dark mode</h3>
+                  <p>
+                    The theme toggle sets <code>data-theme</code> on{" "}
+                    <code>&lt;html&gt;</code> (<code>light</code> /{" "}
+                    <code>dark</code>, or no attribute for <code>auto</code>{" "}
+                    which follows the OS). The page background and page text
+                    flip, and so do the light surfaces — <code>field</code>,{" "}
+                    <code>peach</code> and <code>peach-deep</code> deepen and
+                    their copy flips to <code>on-dark</code>. Orange faces keep
+                    ink text in both modes, and dark surfaces (
+                    <code>alert</code>, <code>toast</code>, <code>code</code>)
+                    are identical in both. All surfaces read variables, never
+                    hardcoded hex, so the toggle reaches every component.
                   </p>
                 </section>
 

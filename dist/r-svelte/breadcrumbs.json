@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "type": "registry:ui",
+  "title": "Breadcrumbs",
+  "description": "Links with separators, current page tag.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    items: string[];\n    current: string;\n    onclick?: (item: string) => void;\n  }\n  let { items, current, onclick }: Props = $props();\n</script>\n\n<nav aria-label=\"Breadcrumb\">\n  <ol class=\"bk-crumbs\">\n    {#each items as it, i}\n      <li class=\"bk-crumbs__item\">\n        {#if i > 0}<PixelIcon name=\"right\" />{/if}\n        {#if i === items.length - 1}\n          <span class=\"bk-crumb--current bk-cut\" aria-current=\"page\">{it}</span>\n        {:else}\n          <a\n            href=\"#{it}\"\n            onclick={(e) => {\n              e.preventDefault();\n              onclick?.(it);\n            }}>{it}</a\n          >\n        {/if}\n      </li>\n    {/each}\n  </ol>\n</nav>\n",
+      "type": "registry:ui",
+      "target": "breadcrumbs.svelte"
+    }
+  ]
+}

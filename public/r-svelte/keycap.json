@@ -1,0 +1,14 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "keycap",
+  "type": "registry:ui",
+  "title": "Keycap",
+  "description": "Field kbd chips with separators.",
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    keys: string[];\n  }\n  let { keys }: Props = $props();\n</script>\n\n<div class=\"bk-keys\">\n  {#each keys as k, i}\n    {#if i > 0}<span>+</span>{/if}\n    <kbd class=\"bk-key bk-cut\">{k}</kbd>\n  {/each}\n</div>\n",
+      "type": "registry:ui",
+      "target": "keycap.svelte"
+    }
+  ]
+}

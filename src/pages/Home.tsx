@@ -25,15 +25,15 @@ export function Home() {
   return (
     <>
       <header className="hero wrap">
-        <span className="hero__kicker">{componentItems.length} COMPONENTS · SHADCN REGISTRY</span>
+        <span className="hero__kicker">{componentItems.length} COMPONENTS · REACT + SVELTE</span>
         <h1>
           Build it like
           <br />
           <span className="hl">brickwork.</span>
         </h1>
         <p className="lead">
-          A chunky pixel-art kit for React apps. Pick any of the {componentItems.length}{" "}
-          pieces, paste it into your project, and ship something with character.
+          A chunky pixel-art kit for React and Svelte apps. Pick any of the {componentItems.length}{" "}
+          pieces — or the 50-piece Svelte port in <code>ui/svelte</code> — paste it into your project, and ship something with character.
         </p>
         <div className="hero__cta">
           <a className="bricked-btn" href="#/showcase">

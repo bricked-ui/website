@@ -1,0 +1,17 @@
+{
+  "$schema": "https://shadcn-svelte.com/schema/registry-item.json",
+  "name": "radio",
+  "type": "registry:ui",
+  "title": "Radio",
+  "description": "Octagon radio with dot icon.",
+  "registryDependencies": [
+    "./pixel-icon.json"
+  ],
+  "files": [
+    {
+      "content": "<script lang=\"ts\">\n  interface Props {\n    checked?: boolean;\n    label?: string;\n    name?: string;\n    value?: string;\n    [key: string]: unknown;\n  }\n  let { checked = $bindable(false), label, ...rest }: Props = $props();\n  import PixelIcon from \"./pixel-icon.svelte\";\n</script>\n\n<label class=\"bk-check\">\n  <input type=\"radio\" {checked} onchange={(e) => (checked = e.currentTarget.checked)} {...rest} />\n  <span class=\"bk-check__box bk-round\"><PixelIcon name=\"dot\" /></span>\n  {#if label}{label}{/if}\n</label>\n",
+      "type": "registry:ui",
+      "target": "radio.svelte"
+    }
+  ]
+}
