@@ -1,5 +1,3 @@
-import * as React from "react";
-
 export const ICONS = {
   play: ["1000000", "1100000", "1110000", "1111000", "1110000", "1100000", "1000000"],
   plus: ["0001000", "0001000", "0001000", "1111111", "0001000", "0001000", "0001000"],
@@ -22,8 +20,7 @@ export const ICONS = {
   user: ["0011100", "0111110", "0111110", "0011100", "0000000", "1111111", "1111111"],
   search: ["0111000", "1000100", "1000100", "1000100", "0111010", "0000101", "0000010"],
   code: ["0000000", "0010100", "0100010", "1000001", "0100010", "0010100", "0000000"],
-  // Exception to the 7x7 rule: the GitHub mark needs a 16x16 canvas to read.
-  // PixelIcon sizes itself from the grid, so mixed sizes just work.
+  // Exception: GitHub mark needs 16x16 to read. PixelIcon sizes from the grid so mixed sizes work.
   github: [
     "0000011111100000",
     "0001111111111000",
@@ -40,48 +37,8 @@ export const ICONS = {
     "0110110000111110",
     "0011000000111100",
     "0001110000111000",
-    "0000010000100000",
-  ],
+    "0000010000100000"
+  ]
 } as const;
 
 export type PixelIconName = keyof typeof ICONS;
-
-export function PixelIcon({
-  name,
-  size = "md",
-  variant = "primary",
-  className,
-}: {
-  name: PixelIconName;
-  size?: "sm" | "md" | "lg";
-  variant?: "primary" | "dark";
-  className?: string;
-}) {
-  const grid = ICONS[name];
-  const cols = grid[0].length;
-  const rows = grid.length;
-  return (
-    <svg
-      data-size={size}
-      data-variant={variant}
-      className={
-        "bricked-icon block shrink-0" + (className ? ` ${className}` : "")
-      }
-      style={{
-        width: `calc(var(--icon, 4px) * ${cols})`,
-        height: `calc(var(--icon, 4px) * ${rows})`,
-      }}
-      viewBox={`0 0 ${cols} ${rows}`}
-      shapeRendering="crispEdges"
-      aria-hidden="true"
-    >
-      {grid.flatMap((row, y) =>
-        [...row].map((cell, x) =>
-          cell === "1" ? (
-            <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill="currentColor" />
-          ) : null
-        )
-      )}
-    </svg>
-  );
-}

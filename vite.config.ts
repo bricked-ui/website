@@ -1,9 +1,9 @@
 import tailwindcss from "@tailwindcss/vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [svelte(), tailwindcss()],
   // The site is self-contained: styles, icons and registry data are vendored
   // under src/ (refresh with `bun run sync-ui`). dist/ needs no ../ui.
   server: {
