@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "Brick button + square icon-button variant. sm/md/lg, primary/dark, left/right icon slots.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "pixel-icon"
+  ],
+  "files": [
+    {
+      "path": "registry/bricked-ui/button.tsx",
+      "content": "import * as React from \"react\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils\";\nimport { PixelIcon, type PixelIconName } from \"./pixel-icon\";\n\nconst button = cva(\n  \"bk-cut bk-bricks inline-flex items-center justify-center font-pixel text-ink \" +\n    \"cursor-pointer select-none rounded-none border-0 leading-none \" +\n    \"shadow-[inset_calc(var(--px)*-1)_calc(var(--px)*-1)_0_var(--color-shade)] \" +\n    \"min-h-[calc(var(--px)*8)] px-[calc(var(--px)*7)] gap-[calc(var(--px)*2)] \" +\n    \"hover:not-disabled:bg-brick-hover \" +\n    \"active:not-disabled:translate-y-[var(--px)] active:not-disabled:shadow-[inset_var(--px)_var(--px)_0_var(--color-shade)] \" +\n    \"focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_var(--px)_var(--color-ink)] \" +\n    \"disabled:cursor-not-allowed disabled:bg-none disabled:bg-[#b98a5e] disabled:text-[#4a3522] \" +\n    \"disabled:shadow-[inset_calc(var(--px)*-1)_calc(var(--px)*-1)_0_#8a6540]\",\n  {\n    variants: {\n      size: {\n        sm: \"[--px:4px] [--cut:1.5px] [--brick:2px] [--icon:3px] text-[11px]\",\n        md: \"[--px:6px] [--cut:2px] [--brick:3px] [--icon:4px] text-[14px]\",\n        lg: \"[--px:8px] [--cut:3px] [--brick:4px] [--icon:5px] text-[18px]\"\n      }\n    },\n    defaultVariants: { size: \"md\" }\n  }\n);\n\nexport interface BrickedButtonProps\n  extends React.ComponentProps<\"button\">,\n    VariantProps<typeof button> {\n  icon?: PixelIconName;\n  iconPosition?: \"left\" | \"right\";\n}\n\nexport function BrickedButton({\n  className,\n  size,\n  icon,\n  iconPosition = \"left\",\n  children,\n  ...props\n}: BrickedButtonProps) {\n  return (\n    <button className={cn(button({ size }), className)} {...props}>\n      {icon && iconPosition === \"left\" && <PixelIcon name={icon} />}\n      <span>{children}</span>\n      {icon && iconPosition === \"right\" && <PixelIcon name={icon} />}\n    </button>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx"
+    },
+    {
+      "path": "registry/bricked-ui/icon-button.tsx",
+      "content": "/** Icon button - 48px square brick icon button with notification dot. */\r\nimport * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { PixelIcon, type PixelIconName } from \"./pixel-icon\";\r\n\r\nconst iconButtonStyles = cva(\"bk-cut bk-bricks inline-flex items-center justify-center font-pixel text-ink cursor-pointer select-none rounded-none border-0 leading-none min-h-[calc(var(--px)*8)] px-[calc(var(--px)*7)] gap-[calc(var(--px)*2)]\", {\r\n  variants: {\r\n    size: { sm: \"[--px:4px] [--cut:1.5px] [--icon:3px] text-[11px]\", md: \"[--px:6px] [--cut:2px] [--icon:4px] text-[14px]\", lg: \"[--px:8px] [--cut:3px] [--icon:5px] text-[18px]\" },\r\n    variant: { primary: \"bg-brick text-ink\", dark: \"bg-ink text-on-dark\" },\r\n  },\r\n  defaultVariants: { size: \"md\", variant: \"primary\" },\r\n});\r\n\r\nexport interface IconButtonProps extends React.ComponentProps<\"button\">, VariantProps<typeof iconButtonStyles> {\r\n  icon?: PixelIconName;\r\n  iconPosition?: \"left\" | \"right\";\r\n}\r\n\r\nexport function IconButton({ className, size, variant, icon, iconPosition = \"left\", children, ...props }: IconButtonProps) {\r\n  return (\r\n    <button className={cn(iconButtonStyles({ size, variant }), className)} {...props}>\r\n      {icon && iconPosition === \"left\" && <PixelIcon name={icon} />}\r\n      {children ? <span>{children}</span> : null}\r\n      {icon && iconPosition === \"right\" && <PixelIcon name={icon} />}\r\n    </button>\r\n  );\r\n}\r\n",
+      "type": "registry:ui",
+      "target": "components/ui/icon-button.tsx"
+    }
+  ]
+}

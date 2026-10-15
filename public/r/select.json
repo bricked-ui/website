@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:ui",
+  "title": "Select",
+  "description": "Native select plus styled native-select variant.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "pixel-icon"
+  ],
+  "files": [
+    {
+      "path": "registry/bricked-ui/select.tsx",
+      "content": "/** Select - Native select with down icon. */\r\nimport * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { PixelIcon, type PixelIconName } from \"./pixel-icon\";\r\n\r\nconst brickedSelectStyles = cva(\"bk-cut bg-field text-ink\", {\r\n  variants: {\r\n    size: { sm: \"[--px:4px] [--cut:1.5px] [--icon:3px] text-[11px]\", md: \"[--px:6px] [--cut:2px] [--icon:4px] text-[14px]\", lg: \"[--px:8px] [--cut:3px] [--icon:5px] text-[18px]\" },\r\n    variant: { primary: \"bg-field text-ink\", dark: \"bg-ink text-on-dark\" },\r\n  },\r\n  defaultVariants: { size: \"md\", variant: \"primary\" },\r\n});\r\n\r\nexport interface BrickedSelectProps extends React.ComponentProps<\"div\">, VariantProps<typeof brickedSelectStyles> {\r\n  icon?: PixelIconName;\r\n  iconPosition?: \"left\" | \"right\";\r\n}\r\n\r\nexport function BrickedSelect({ className, size, variant, icon, iconPosition = \"left\", children, ...props }: BrickedSelectProps) {\r\n  return (\r\n    <div className={cn(brickedSelectStyles({ size, variant }), className)} {...props}>\r\n      {icon && iconPosition === \"left\" && <PixelIcon name={icon} />}\r\n      {children ? <span>{children}</span> : null}\r\n      {icon && iconPosition === \"right\" && <PixelIcon name={icon} />}\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:ui",
+      "target": "components/ui/select.tsx"
+    },
+    {
+      "path": "registry/bricked-ui/native-select.tsx",
+      "content": "/** Native select - Styled native select element. */\r\nimport * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { PixelIcon, type PixelIconName } from \"./pixel-icon\";\r\n\r\nconst nativeSelectStyles = cva(\"bk-cut bg-field text-ink\", {\r\n  variants: {\r\n    size: { sm: \"[--px:4px] [--cut:1.5px] [--icon:3px] text-[11px]\", md: \"[--px:6px] [--cut:2px] [--icon:4px] text-[14px]\", lg: \"[--px:8px] [--cut:3px] [--icon:5px] text-[18px]\" },\r\n    variant: { primary: \"bg-field text-ink\", dark: \"bg-ink text-on-dark\" },\r\n  },\r\n  defaultVariants: { size: \"md\", variant: \"primary\" },\r\n});\r\n\r\nexport interface NativeSelectProps extends React.ComponentProps<\"div\">, VariantProps<typeof nativeSelectStyles> {\r\n  icon?: PixelIconName;\r\n  iconPosition?: \"left\" | \"right\";\r\n}\r\n\r\nexport function NativeSelect({ className, size, variant, icon, iconPosition = \"left\", children, ...props }: NativeSelectProps) {\r\n  return (\r\n    <div className={cn(nativeSelectStyles({ size, variant }), className)} {...props}>\r\n      {icon && iconPosition === \"left\" && <PixelIcon name={icon} />}\r\n      {children ? <span>{children}</span> : null}\r\n      {icon && iconPosition === \"right\" && <PixelIcon name={icon} />}\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:ui",
+      "target": "components/ui/native-select.tsx"
+    }
+  ]
+}

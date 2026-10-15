@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bricked-globals",
+  "type": "registry:lib",
+  "title": "Bricked globals",
+  "description": "Tailwind v4 theme tokens and bk-cut / bk-bricks utilities.",
+  "files": [
+    {
+      "path": "registry/bricked-ui/globals.css",
+      "content": "@import \"tailwindcss\";\n\n@theme {\n  --color-ink: #2b1100;\n  --color-shade: #c25a00;\n  --color-brick: #ff8a1f;\n  --color-brick-hover: #ff9a3d;\n  --color-field: #fff6ea;\n  --color-peach: #ffd3a1;\n  --color-peach-deep: #f1b97c;\n  --color-muted: #9a6a3c;\n  --color-deep: #a24a00;\n  --color-on-dark: #ffd9b0;\n  --color-on-dark-accent: #ffb36b;\n  --color-heart: #d63a1f;\n  --font-pixel: \"Press Start 2P\", ui-monospace, \"Courier New\", monospace;\n  --font-body: \"VT323\", ui-monospace, \"Courier New\", monospace;\n  --radius-*: initial;\n  --shadow-*: initial;\n}\n\n:root {\n  --bricks: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8' preserveAspectRatio='none' shape-rendering='crispEdges'%3E%3Cg fill='%23a24a00' fill-opacity='.3'%3E%3Crect width='16' height='1'/%3E%3Crect y='4' width='16' height='1'/%3E%3Crect width='1' height='4'/%3E%3Crect x='8' y='4' width='1' height='4'/%3E%3C/g%3E%3C/svg%3E\");\n}\n\n@utility bk-cut {\n  --cut: 2px;\n  clip-path: polygon(\n    0 0,\n    calc(100% - var(--cut) * 4) 0,\n    calc(100% - var(--cut) * 4) var(--cut),\n    calc(100% - var(--cut) * 3) var(--cut),\n    calc(100% - var(--cut) * 3) calc(var(--cut) * 2),\n    calc(100% - var(--cut) * 2) calc(var(--cut) * 2),\n    calc(100% - var(--cut) * 2) calc(var(--cut) * 3),\n    calc(100% - var(--cut)) calc(var(--cut) * 3),\n    calc(100% - var(--cut)) calc(var(--cut) * 4),\n    100% calc(var(--cut) * 4),\n    100% 100%,\n    calc(var(--cut) * 4) 100%,\n    calc(var(--cut) * 4) calc(100% - var(--cut)),\n    calc(var(--cut) * 3) calc(100% - var(--cut)),\n    calc(var(--cut) * 3) calc(100% - var(--cut) * 2),\n    calc(var(--cut) * 2) calc(100% - var(--cut) * 2),\n    calc(var(--cut) * 2) calc(100% - var(--cut) * 3),\n    var(--cut) calc(100% - var(--cut) * 3),\n    var(--cut) calc(100% - var(--cut) * 4),\n    0 calc(100% - var(--cut) * 4)\n  );\n}\n\n@utility bk-bricks {\n  background-color: var(--color-brick);\n  background-image: var(--bricks);\n  background-size: 36px 18px;\n  background-position: center;\n  image-rendering: pixelated;\n}\n\n@utility bk-raised {\n  box-shadow: inset -4px -4px 0 var(--color-shade);\n}\n\n@utility bk-sunken {\n  box-shadow: inset 4px 4px 0 var(--color-shade);\n}\n",
+      "type": "registry:lib",
+      "target": "app/globals.css"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "clock",
+  "type": "registry:ui",
+  "title": "Clock",
+  "description": "Live 24h dark clock.",
+  "dependencies": [],
+  "registryDependencies": [
+    "pixel-icon"
+  ],
+  "files": [
+    {
+      "path": "registry/bricked-ui/clock.tsx",
+      "content": "import * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { PixelIcon, type PixelIconName } from \"./pixel-icon\";\r\n\r\nconst s = cva(\"bk-clock bk-cut\", {\r\n  variants: {\r\n    size: { sm: \"[--px:4px] [--cut:1.5px] [--icon:3px] text-[11px]\", md: \"[--px:6px] [--cut:2px] [--icon:4px] text-[14px]\", lg: \"[--px:8px] [--cut:3px] [--icon:5px] text-[18px]\" },\r\n    variant: { primary: \"bg-brick text-ink\", dark: \"bg-ink text-on-dark\" },\r\n  },\r\n  defaultVariants: { size: \"md\", variant: \"primary\" },\r\n});\r\nexport interface ClockProps extends React.ComponentProps<\"div\">, VariantProps<typeof s> { icon?: PixelIconName; }\r\nexport function Clock({ className, size, variant, ...props }: ClockProps) {\r\n  const [t, setT] = React.useState(() => new Date());\r\n  React.useEffect(() => { const i = setInterval(() => setT(new Date()), 1000); return () => clearInterval(i); }, []);\r\n  return (<div className={cn(s({ size, variant }), className)} role=\"timer\" {...props}>{t.toLocaleTimeString([], { hour: \"2-digit\", minute: \"2-digit\", second: \"2-digit\", hour12: false })}</div>);\r\n}\r\n",
+      "type": "registry:ui",
+      "target": "components/ui/clock.tsx"
+    }
+  ]
+}

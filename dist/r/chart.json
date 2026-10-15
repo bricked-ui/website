@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart",
+  "type": "registry:ui",
+  "title": "Chart",
+  "description": "Pixel bars from plain divs.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "pixel-icon"
+  ],
+  "files": [
+    {
+      "path": "registry/bricked-ui/chart.tsx",
+      "content": "/** Chart - Pixel bars from plain divs. */\r\nimport * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { PixelIcon, type PixelIconName } from \"./pixel-icon\";\r\n\r\nconst chartStyles = cva(\"bk-cut bg-field text-ink\", {\r\n  variants: {\r\n    size: { sm: \"[--px:4px] [--cut:1.5px] [--icon:3px] text-[11px]\", md: \"[--px:6px] [--cut:2px] [--icon:4px] text-[14px]\", lg: \"[--px:8px] [--cut:3px] [--icon:5px] text-[18px]\" },\r\n    variant: { primary: \"bg-field text-ink\", dark: \"bg-ink text-on-dark\" },\r\n  },\r\n  defaultVariants: { size: \"md\", variant: \"primary\" },\r\n});\r\n\r\nexport interface ChartProps extends React.ComponentProps<\"div\">, VariantProps<typeof chartStyles> {\r\n  icon?: PixelIconName;\r\n  iconPosition?: \"left\" | \"right\";\r\n}\r\n\r\nexport function Chart({ className, size, variant, icon, iconPosition = \"left\", children, ...props }: ChartProps) {\r\n  return (\r\n    <div className={cn(chartStyles({ size, variant }), className)} {...props}>\r\n      {icon && iconPosition === \"left\" && <PixelIcon name={icon} />}\r\n      {children ? <span>{children}</span> : null}\r\n      {icon && iconPosition === \"right\" && <PixelIcon name={icon} />}\r\n    </div>\r\n  );\r\n}\r\n",
+      "type": "registry:ui",
+      "target": "components/ui/chart.tsx"
+    }
+  ]
+}
