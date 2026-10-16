@@ -8,6 +8,7 @@
   import Docs from "./pages/Docs.svelte";
   import Home from "./pages/Home.svelte";
   import Showcase from "./pages/Showcase.svelte";
+  import EasterEgg from "./components/EasterEgg.svelte";
 
   function currentPath(): string {
     return window.location.hash.replace(/^#/, "") || "/";
@@ -130,6 +131,7 @@
           {now.toLocaleTimeString([], { hour12: false })}
         </time>
       </p>
+      <EasterEgg />
     </div>
   </footer>
 </div>

@@ -68,10 +68,13 @@
           </div>
         </section>
         <section class="bk-card bk-cut">
-          <header class="bk-card__head">2 · Add a component</header>
+          <header class="bk-card__head">2 · Add the registry, then a button</header>
           <div class="bk-card__body">
-            <p style="margin: 0;">Copy the code straight into your repo.</p>
+            <p style="margin: 0;">Register once, then copy the code straight into your repo.</p>
             <div class="install" style="justify-content: flex-start;">
+              <code>
+                <b>bunx</b> shadcn registry add @bricked=https://bricked-ui.vercel.app/r/{"{name}"}.json
+              </code>
               <code>
                 <b>bunx</b> shadcn add @bricked/button
               </code>

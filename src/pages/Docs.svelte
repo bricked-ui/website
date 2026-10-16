@@ -107,9 +107,10 @@
               build={(run) =>
                 `${run} shadcn@latest registry add @bricked=https://bricked-ui.vercel.app/r/{name}.json`}
             />
-            <h3>2 · Add a component</h3>
+            <h3>2 · Add the registry, then a button</h3>
             <InstallSnippet
-              build={(run) => `${run} shadcn@latest add @bricked/button`}
+              build={(run) =>
+                `${run} shadcn@latest registry add @bricked=https://bricked-ui.vercel.app/r/{name}.json\n${run} shadcn@latest add @bricked/button`}
             />
             <h3>Anatomy — what lands in your repo</h3>
             <div class="doc-code">
@@ -330,7 +331,9 @@
           <section class="section" id="registry">
             <h2>Registry reference</h2>
             <p>
-              All {componentItems.length} React components. Install with
+              All {componentItems.length} React components. First register
+              <code>bunx shadcn registry add @bricked=https://bricked-ui.vercel.app/r/{"{name}"}.json</code>,
+              then install with
               <code>bunx shadcn add @bricked/&lt;name&gt;</code> — or grab the
               Svelte twin from <code>/r-svelte/&lt;name&gt;.json</code>. Open
               <b>Code</b> to copy-paste files by hand. Type to filter, copy to

@@ -107,7 +107,9 @@
 
   async function copyInstall() {
     try {
-      await navigator.clipboard.writeText("bunx shadcn add @bricked/button");
+      await navigator.clipboard.writeText(
+        "bunx shadcn registry add @bricked=https://bricked-ui.vercel.app/r/{name}.json\nbunx shadcn add @bricked/button"
+      );
     } catch {
       /* clipboard unavailable — still flip the label */
     }

@@ -36,5 +36,7 @@
 </div>
 <div class="doc-code" style="margin-top: 8px;">
   <CopyButton text={full} />
-  <b>{head}</b>{full.slice(head.length)}
+  {#each full.split("\n") as line, i}
+    {#if i > 0}<br />{/if}<b>{head}</b>{line.slice(head.length)}
+  {/each}
 </div>
