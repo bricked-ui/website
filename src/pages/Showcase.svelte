@@ -206,7 +206,7 @@
   </Card>
 {:else if category === "icons"}
   <Card title="Pixel icons">
-    <Demo tag={`@bricked/pixel-icon — ${Object.keys(ICONS).length} glyphs (github + discord are 16×16, the rest 7×7)`}>
+    <Demo tag={`@bricked/pixel-icon — ${Object.keys(ICONS).length} glyphs (brands are 16×16, the rest 7×7)`}>
       <div class="bk-search" style="max-width: 420px; margin-bottom: 8px;">
         <input
           type="search"
@@ -223,7 +223,7 @@
       {#if iconNames.length}
         <div class="icon-grid">
           {#each iconNames as name}
-            <figure style={name === "github" || name === "discord" ? "--icon: 2px;" : undefined}>
+            <figure style={ICONS[name as PixelIconName].length > 7 ? "--icon: 2px;" : undefined}>
               <PixelIcon name={name as PixelIconName} />
               <figcaption>{name}</figcaption>
             </figure>
