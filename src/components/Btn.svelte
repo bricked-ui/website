@@ -2,10 +2,10 @@
   import type { Snippet } from "svelte";
   import { cn } from "../lib/utils";
   import PixelIcon from "./pixel-icon.svelte";
-  import type { PixelIconName } from "./icons.js";
+  import type { PixelIconInput } from "./icons.js";
 
   interface Props {
-    icon?: PixelIconName;
+    icon?: PixelIconInput;
     size?: "sm" | "lg";
     disabled?: boolean;
     class?: string;
@@ -29,6 +29,6 @@
   {disabled}
   {onclick}
 >
-  {#if icon}<PixelIcon name={icon} />{/if}
+  {#if icon}<PixelIcon icon={icon} />{/if}
   {#if children}<span>{@render children()}</span>{/if}
 </button>

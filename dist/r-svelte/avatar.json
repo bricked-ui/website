@@ -9,7 +9,7 @@
   ],
   "files": [
     {
-      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    icon?: import(\"./icons.js\").PixelIconName;\n    dark?: boolean;\n    children?: import(\"svelte\").Snippet;\n  }\n  let { icon, dark = false, children }: Props = $props();\n</script>\n\n<span class=\"bk-avatar bk-cut\" class:bk-avatar--dark={dark}>\n  {#if icon}<PixelIcon name={icon} />\n  {:else if children}{@render children()}\n  {/if}\n</span>\n",
+      "content": "<script lang=\"ts\">\n  import PixelIcon from \"./pixel-icon.svelte\";\n\n  interface Props {\n    icon?: import(\"./icons.js\").PixelIconInput;\n    dark?: boolean;\n    children?: import(\"svelte\").Snippet;\n  }\n  let { icon, dark = false, children }: Props = $props();\n</script>\n\n<span class=\"bk-avatar bk-cut\" class:bk-avatar--dark={dark}>\n  {#if icon}<PixelIcon icon={icon} />\n  {:else if children}{@render children()}\n  {/if}\n</span>\n",
       "type": "registry:ui",
       "target": "avatar.svelte"
     }

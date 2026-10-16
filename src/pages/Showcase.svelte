@@ -44,6 +44,7 @@
   let carouselS = $state(1);
   let quizPicked = $state(3);
   let quizAdvanced = $state(false);
+  let iconQ = $state("");
 
   let diceTimer: ReturnType<typeof setInterval> | null = null;
 
@@ -75,6 +76,10 @@
   const countdownM = $derived(Math.floor((countdownS % 3600) / 60));
   const countdownSs = $derived(countdownS % 60);
   const pad = (n: number) => String(n).padStart(2, "0");
+  const iconNeedle = $derived(iconQ.trim().toLowerCase());
+  const iconNames = $derived(
+    Object.keys(ICONS).filter((n) => !iconNeedle || n.includes(iconNeedle))
+  );
 
   onMount(() => {
     const clock = setInterval(() => (clockT = new Date()), 1000);
@@ -201,15 +206,42 @@
   </Card>
 {:else if category === "icons"}
   <Card title="Pixel icons">
-    <Demo tag="@bricked/pixel-icon — 22 glyphs (github is 16×16, the rest 7×7)">
-      <div class="icon-grid">
-        {#each Object.keys(ICONS) as name}
-          <figure style={name === "github" ? "--icon: 2px;" : undefined}>
-            <PixelIcon name={name as PixelIconName} />
-            <figcaption>{name}</figcaption>
-          </figure>
-        {/each}
+    <Demo tag={`@bricked/pixel-icon — ${Object.keys(ICONS).length} glyphs (github + discord are 16×16, the rest 7×7)`}>
+      <div class="bk-search" style="max-width: 420px; margin-bottom: 8px;">
+        <input
+          type="search"
+          class="bk-input bk-cut"
+          placeholder="Search icons by name…"
+          aria-label="Search icons by name"
+          bind:value={iconQ}
+        />
+        <PixelIcon name="search" />
       </div>
+      <p style="margin: 0 0 8px;">
+        {iconNames.length} of {Object.keys(ICONS).length} shown
+      </p>
+      {#if iconNames.length}
+        <div class="icon-grid">
+          {#each iconNames as name}
+            <figure style={name === "github" || name === "discord" ? "--icon: 2px;" : undefined}>
+              <PixelIcon name={name as PixelIconName} />
+              <figcaption>{name}</figcaption>
+            </figure>
+          {/each}
+        </div>
+      {:else}
+        <div class="bk-empty bk-cut">
+          <p class="bk-empty__title">No icons match “{iconQ}”</p>
+          <p>Try “arrow”, “brand”, or clear the search.</p>
+          <button
+            type="button"
+            class="bricked-btn bricked-btn--sm"
+            onclick={() => (iconQ = "")}
+          >
+            <span>Clear</span>
+          </button>
+        </div>
+      {/if}
     </Demo>
   </Card>
 {:else if category === "containers"}

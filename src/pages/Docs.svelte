@@ -37,7 +37,7 @@
   const PROPS: Array<[string, string, string]> = [
     ["size", `"sm" | "md" | "lg"`, `"md" — sets --px, --cut, --icon and the font size`],
     ["variant", `"primary" | "dark"`, `"primary" — dark flips to ink surfaces with on-dark text`],
-    ["icon", `PixelIconName`, `none — any of the 22 pixel glyphs, rendered left or right`],
+    ["icon", `PixelIconName \| PixelIconGrid`, `none — registry name or your own 0/1 grid, rendered left or right`],
     ["iconPosition", `"left" | "right"`, `"left"`],
     ["class / className", `string`, `merged with cn(), so your Tailwind wins`],
     ["children / snippet", `content`, `label, content, whatever the piece holds`],
@@ -230,6 +230,28 @@
               <br />
               &lt;PixelIcon name=&quot;cart&quot; /&gt;
             </CodeBlock>
+            <p>
+              Need something off-menu? Pass your own grid — one string per
+              row, <code>&quot;1&quot;</code> = filled pixel, any size.
+              It works on <code>PixelIcon</code> and on every
+              <code>icon</code> prop:
+            </p>
+            <CodeBlock
+              text={`import { PixelIcon } from "@/components/ui/pixel-icon";\n\nconst sparkle = ["0001000", "0111110", "1101011", "0111110", "0001000"];\n\n<PixelIcon grid={sparkle} />\n<BrickedButton icon={sparkle}>Custom</BrickedButton>`}
+            >
+              const sparkle = [&quot;0001000&quot;, &quot;0111110&quot;,
+              &quot;1101011&quot;, &quot;0111110&quot;, &quot;0001000&quot;];
+              <br />
+              <br />
+              &lt;PixelIcon grid={"{"}sparkle{"}"} /&gt;
+              <br />
+              &lt;BrickedButton icon={"{"}sparkle{"}"}&gt;Custom&lt;/BrickedButton&gt;
+            </CodeBlock>
+            <p>
+              Same in Svelte: <code>&lt;PixelIcon grid={"{"}sparkle{"}"} /&gt;</code>
+              and <code>&lt;Button icon={"{"}sparkle{"}"}&gt;</code>. Keep rows
+              equal length; unknown names render nothing, never crash.
+            </p>
             <p>
               Back, Next, Play and Save are not separate components — they are
               <code>button</code> with <code>icon=&quot;left&quot;</code>,

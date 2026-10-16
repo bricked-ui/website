@@ -9,7 +9,7 @@
   ],
   "files": [
     {
-      "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import type { PixelIconName } from \"./icons.js\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    icon: PixelIconName;\n    title: string;\n    action?: Snippet;\n    class?: string;\n    children: Snippet;\n  }\n  let { icon, title, action, class: cls = \"\", children, ...rest }: Props = $props();\n</script>\n\n<div class={cn(\"bk-empty bk-cut\", cls)} {...rest}>\n  <PixelIcon name={icon} />\n  <p class=\"bk-empty__title\">{title}</p>\n  <p>{@render children()}</p>\n  {#if action}\n    {@render action()}\n  {/if}\n</div>\n",
+      "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import PixelIcon from \"./pixel-icon.svelte\";\n  import type { PixelIconInput } from \"./icons.js\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    icon: PixelIconInput;\n    title: string;\n    action?: Snippet;\n    class?: string;\n    children: Snippet;\n  }\n  let { icon, title, action, class: cls = \"\", children, ...rest }: Props = $props();\n</script>\n\n<div class={cn(\"bk-empty bk-cut\", cls)} {...rest}>\n  <PixelIcon icon={icon} />\n  <p class=\"bk-empty__title\">{title}</p>\n  <p>{@render children()}</p>\n  {#if action}\n    {@render action()}\n  {/if}\n</div>\n",
       "type": "registry:ui",
       "target": "empty-state.svelte"
     }
