@@ -5,6 +5,7 @@
   "title": "Pagination",
   "description": "Page buttons with prev/next.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

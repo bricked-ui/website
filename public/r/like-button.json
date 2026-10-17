@@ -6,6 +6,7 @@
   "description": "Field-surface like with heart burst and count.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

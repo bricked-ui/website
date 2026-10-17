@@ -5,6 +5,7 @@
   "title": "Ask the wall",
   "description": "Random answer box.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./button.json"
   ],
   "files": [

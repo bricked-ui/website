@@ -6,6 +6,7 @@
   "description": "Minus/plus stepper around a value box.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

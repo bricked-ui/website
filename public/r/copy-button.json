@@ -6,6 +6,7 @@
   "description": "Copies text, flips to a check on success.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

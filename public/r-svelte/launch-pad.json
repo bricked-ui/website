@@ -5,6 +5,7 @@
   "title": "Launch pad",
   "description": "Sky box with flying rocket.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./button.json",
     "./pixel-icon.json"
   ],

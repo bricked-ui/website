@@ -5,6 +5,7 @@
   "title": "Dropdown menu",
   "description": "Trigger plus dark menu list.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./button.json",
     "./pixel-icon.json"
   ],

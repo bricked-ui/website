@@ -5,6 +5,7 @@
   "title": "Radio",
   "description": "Octagon radio with dot icon.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

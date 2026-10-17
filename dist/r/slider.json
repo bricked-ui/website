@@ -6,6 +6,7 @@
   "description": "Range with orange fill and ink thumb.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

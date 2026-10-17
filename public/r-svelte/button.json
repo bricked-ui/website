@@ -5,6 +5,7 @@
   "title": "Button",
   "description": "Brick button + square icon-button variant. sm/md/lg, primary/dark, left/right icon slots.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

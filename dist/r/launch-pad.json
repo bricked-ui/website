@@ -6,6 +6,7 @@
   "description": "Sky box with flying rocket.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

@@ -5,6 +5,7 @@
   "title": "Counter",
   "description": "Minus/plus stepper around a value box.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

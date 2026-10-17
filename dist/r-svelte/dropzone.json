@@ -5,6 +5,7 @@
   "title": "Dropzone",
   "description": "File drop label plus compact file input.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Badge",
   "description": "Orange or dark pixel badge.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    dark?: boolean;\n    class?: string;\n    children: Snippet;\n  }\n  let { dark = false, class: cls = \"\", children, ...rest }: Props = $props();\n</script>\n\n<span class={cn(\"bk-badge bk-cut\", dark && \"bk-badge--dark\", cls)} {...rest}>\n  {@render children()}\n</span>\n",

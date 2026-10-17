@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Pixel Icon",
   "description": "268 pixel icons as SVG rects (7x7 grids, brand marks at 16x16). Every component takes one via the icon prop — or pass your own grid.",
+  "registryDependencies": [
+    "bricked-css"
+  ],
   "files": [
     {
       "path": "registry/bricked-ui/pixel-icon.tsx",

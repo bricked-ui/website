@@ -5,6 +5,7 @@
   "title": "Rating",
   "description": "Five star radio buttons.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

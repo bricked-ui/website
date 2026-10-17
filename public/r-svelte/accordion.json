@@ -5,6 +5,7 @@
   "title": "Accordion",
   "description": "Field headers, orange when open.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

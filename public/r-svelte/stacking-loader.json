@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Stacking loader",
   "description": "Three dropping bricks.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  interface Props {\n    label?: string;\n  }\n  let { label = \"Stacking\" }: Props = $props();\n</script>\n\n<span class=\"bk-spin-wrap\" role=\"status\">\n  <span class=\"bk-stack-load\" aria-hidden=\"true\">\n    {#each [0, 1, 2] as i}\n      <span style=\"animation-delay: {i * 0.3}s\"></span>\n    {/each}\n  </span>\n  {label}\n</span>\n",

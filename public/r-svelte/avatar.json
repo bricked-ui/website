@@ -5,6 +5,7 @@
   "title": "Avatar",
   "description": "Orange or dark 48px avatar.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

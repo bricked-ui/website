@@ -6,6 +6,7 @@
   "description": "Ticking d/h/m/s boxes.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

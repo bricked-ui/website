@@ -99,7 +99,8 @@
                 Component dependencies install themselves — e.g.
                 <code>button</code> pulls in
                 <code>class-variance-authority</code>, and everything pulls in
-                <code>pixel-icon</code> automatically.
+                <code>pixel-icon</code> and the <code>bricked-css</code>
+                stylesheet automatically.
               </li>
             </ul>
             <h3>1 · Register the namespace (once per project)</h3>
@@ -117,21 +118,23 @@
               components/ui/button.tsx
               <br />
               components/ui/pixel-icon.tsx
+              <br />
+              app/bricked.css
             </div>
             <p>
               That is it. The code is yours now — edit it freely, it will
               never be overwritten unless you run <code>add</code> again.
             </p>
-            <h3>3 · Add the styles</h3>
+            <h3>3 · Add the theme</h3>
             <InstallSnippet
-              build={(run) =>
-                `${run} shadcn@latest add @bricked/bricked-globals @bricked/bricked-css`}
+              build={(run) => `${run} shadcn@latest add @bricked/bricked-globals`}
             />
             <p>
               <code>bricked-globals</code> is the Tailwind v4 theme (tokens
               plus the <code>bk-cut</code> / <code>bk-bricks</code> utilities).
-              <code>bricked-css</code> is the full <code>bk-*</code>
-              stylesheet. Import both in your CSS entry.
+              <code>bricked-css</code> — the full <code>bk-*</code>
+              stylesheet — arrives with every component, so there is nothing
+              to add by hand. Import both in your CSS entry.
             </p>
             <h3>Svelte — same bricks, runes inside</h3>
             <p>
@@ -165,7 +168,8 @@
               That drops <code>button.svelte</code> (+
               <code>icon-button.svelte</code>) into
               <code>$lib/components/ui</code> and pulls
-              <code>pixel-icon</code> automatically. Use it:
+              <code>pixel-icon</code> plus <code>bricked.css</code>
+              (<code>$lib/bricked.css</code>) automatically. Use it:
             </p>
             <CodeBlock
               text={`<script>\n  import Button from "$lib/components/ui/button.svelte";\n<\/script>\n\n<Button icon="rocket">Launch</Button>`}
@@ -180,14 +184,11 @@
               <br />
               &lt;Button icon=&quot;rocket&quot;&gt;Launch&lt;/Button&gt;
             </CodeBlock>
-            <h3>3 · Add the styles</h3>
-            <InstallSnippet
-              build={(run) =>
-                `${run} shadcn-svelte@latest add https://bricked-ui.vercel.app/r-svelte/bricked-css.json`}
-            />
+            <h3>3 · Import the stylesheet</h3>
             <p>
-              Then import it in <code>src/app.css</code> (it installs to
-              <code>$lib/bricked.css</code>) and add the pixel fonts:
+              <code>bricked.css</code> already ships with the component
+              (installed as <code>$lib/bricked.css</code>) — import it in
+              <code>src/app.css</code> and add the pixel fonts:
             </p>
             <CodeBlock
               text={`@import "$lib/bricked.css";\n\n/* layout head: Press Start 2P + VT323 from Google Fonts */`}

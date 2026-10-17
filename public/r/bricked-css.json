@@ -3,7 +3,7 @@
   "name": "bricked-css",
   "type": "registry:lib",
   "title": "Bricked CSS",
-  "description": "Full bk-* stylesheet. Import alongside globals.",
+  "description": "Full bk-* stylesheet. Installs automatically as a dependency of every component - import it once in your CSS entry.",
   "files": [
     {
       "path": "registry/bricked-ui/bricked.css",

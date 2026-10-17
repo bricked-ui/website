@@ -5,6 +5,7 @@
   "title": "Checkbox",
   "description": "28px sunken box, orange when checked.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

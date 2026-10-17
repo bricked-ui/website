@@ -5,6 +5,7 @@
   "title": "Chips",
   "description": "Removable field tags.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

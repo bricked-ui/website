@@ -5,6 +5,7 @@
   "title": "Empty state",
   "description": "Sunken empty slot with icon, text and action.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

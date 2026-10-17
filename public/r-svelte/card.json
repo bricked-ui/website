@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Card",
   "description": "Peach card with brick header and body.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  import type { Snippet } from \"svelte\";\n  import { cn } from \"$UTILS$.js\";\n\n  interface Props {\n    title?: string;\n    class?: string;\n    children: Snippet;\n  }\n  let { title, class: cls = \"\", children, ...rest }: Props = $props();\n</script>\n\n<section class={cn(\"bk-card bk-cut\", cls)} {...rest}>\n  {#if title}\n    <header class=\"bk-card__head\">{title}</header>\n  {/if}\n  <div class=\"bk-card__body\">\n    {@render children()}\n  </div>\n</section>\n",

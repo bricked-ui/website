@@ -5,6 +5,7 @@
   "title": "Alert",
   "description": "Dark alert with title and body.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

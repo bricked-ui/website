@@ -6,6 +6,7 @@
   "description": "Orange/ink flip square.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

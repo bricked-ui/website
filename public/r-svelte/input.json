@@ -5,6 +5,7 @@
   "title": "Input",
   "description": "Sunken field input plus search and date variants.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

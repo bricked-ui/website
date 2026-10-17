@@ -5,6 +5,7 @@
   "title": "Banner",
   "description": "Orange announcement bar.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

@@ -5,6 +5,7 @@
   "title": "Modal",
   "description": "Overlay dialog. See also sheet, drawer, alert-dialog.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

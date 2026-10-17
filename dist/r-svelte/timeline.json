@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Timeline",
   "description": "Markers with shade connectors.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  interface Item {\n    title: string;\n    time: string;\n  }\n  interface Props {\n    items: Item[];\n  }\n  let { items }: Props = $props();\n</script>\n\n<ol class=\"bk-tl\">\n  {#each items as it}\n    <li>\n      <span class=\"bk-tl__dot\"></span>\n      <div>\n        <p class=\"bk-tl__title\">{it.title}</p>\n        <p>{it.time}</p>\n      </div>\n    </li>\n  {/each}\n</ol>\n",

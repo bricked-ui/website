@@ -5,6 +5,7 @@
   "title": "Stepper",
   "description": "Numbered steps with connectors.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

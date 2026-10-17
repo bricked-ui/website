@@ -5,6 +5,7 @@
   "title": "Toast",
   "description": "Dark toast with icon and dismiss.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

@@ -6,6 +6,7 @@
   "description": "Five star radio buttons.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

@@ -5,6 +5,7 @@
   "title": "Breadcrumbs",
   "description": "Links with separators, current page tag.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

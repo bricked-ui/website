@@ -5,6 +5,7 @@
   "title": "Select",
   "description": "Native select plus styled native-select variant.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./pixel-icon.json"
   ],
   "files": [

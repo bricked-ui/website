@@ -6,6 +6,7 @@
   "description": "Input opening a calendar.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

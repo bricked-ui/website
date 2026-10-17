@@ -8,6 +8,7 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

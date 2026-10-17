@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Health meter",
   "description": "Ten-segment HP bar.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  interface Props {\n    value?: number;\n    max?: number;\n  }\n  let { value = 7, max = 10 }: Props = $props();\n</script>\n\n<div class=\"bk-meter\">\n  <p class=\"bk-meter__label\">HP {value}/{max}</p>\n  <div class=\"bk-meter__bar\" role=\"progressbar\" aria-valuemin={0} aria-valuemax={max} aria-valuenow={value}>\n    {#each Array.from({ length: max }, (_, i) => i) as i}\n      <span class:is-on={i < value}></span>\n    {/each}\n  </div>\n</div>\n",

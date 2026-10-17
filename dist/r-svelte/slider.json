@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Slider",
   "description": "Range with orange fill and ink thumb.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  interface Props {\n    value?: number;\n    min?: number;\n    max?: number;\n    id?: string;\n    onChange?: (v: number) => void;\n  }\n  let { value = $bindable(60), min = 0, max = 100, id, onChange }: Props = $props();\n</script>\n\n<input\n  {id}\n  type=\"range\"\n  {min}\n  {max}\n  bind:value\n  class=\"bk-slider bk-cut\"\n  style=\"--v: {(value / max) * 100}%\"\n  oninput={(e) => onChange?.(Number(e.currentTarget.value))}\n/>\n",

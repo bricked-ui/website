@@ -5,6 +5,7 @@
   "title": "Dice",
   "description": "Rollable 72px die.",
   "registryDependencies": [
+    "./bricked-css.json",
     "./button.json",
     "./pixel-icon.json"
   ],

@@ -4,6 +4,9 @@
   "type": "registry:ui",
   "title": "Pixel Icon",
   "description": "268 pixel icons as SVG rects (7x7 grids, brand marks at 16x16). Every component takes one via the icon prop — or pass your own grid.",
+  "registryDependencies": [
+    "./bricked-css.json"
+  ],
   "files": [
     {
       "content": "<script lang=\"ts\">\n  import {\n    resolvePixelGrid,\n    type PixelIconGrid,\n    type PixelIconInput,\n    type PixelIconName,\n  } from \"./icons.js\";\n\n  interface Props {\n    /** Registry icon name. Kept for back-compat — `icon` does the same plus custom grids. */\n    name?: PixelIconName;\n    /** Custom pixel grid. Wins over `icon`/`name` when provided. */\n    grid?: PixelIconGrid;\n    /** Registry name or custom grid. Wins over `name` when provided. */\n    icon?: PixelIconInput;\n    class?: string;\n  }\n\n  let { name, grid, icon, class: cls = \"\" }: Props = $props();\n\n  const resolved = $derived(\n    grid ??\n      (icon !== undefined ? resolvePixelGrid(icon) : undefined) ??\n      (name ? resolvePixelGrid(name) : undefined)\n  );\n  const cols = $derived(\n    resolved ? Math.max(...resolved.map((r) => r.length)) : 0\n  );\n  const rows = $derived(resolved ? resolved.length : 0);\n</script>\n\n{#if resolved}\n  <svg\n    class=\"bricked-icon {cls}\"\n    style=\"width: calc(var(--icon, 4px) * {cols}); height: calc(var(--icon, 4px) * {rows});\"\n    viewBox=\"0 0 {cols} {rows}\"\n    shape-rendering=\"crispEdges\"\n    aria-hidden=\"true\"\n  >\n    {#each resolved as row, y}\n      {#each [...row] as cell, x}\n        {#if cell === \"1\"}\n          <rect x={x} y={y} width={1} height={1} fill=\"currentColor\" />\n        {/if}\n      {/each}\n    {/each}\n  </svg>\n{/if}\n",

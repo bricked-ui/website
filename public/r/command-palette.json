@@ -6,6 +6,7 @@
   "description": "Filterable search plus list dialog.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

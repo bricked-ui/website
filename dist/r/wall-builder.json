@@ -6,6 +6,7 @@
   "description": "Layable brick wall with counter.",
   "dependencies": [],
   "registryDependencies": [
+    "bricked-css",
     "pixel-icon"
   ],
   "files": [

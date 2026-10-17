@@ -6,6 +6,7 @@
   "description": "Layable brick wall with counter.",
   "registryDependencies": [
     "./badge.json",
+    "./bricked-css.json",
     "./button.json",
     "./pixel-icon.json"
   ],
