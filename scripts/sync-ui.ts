@@ -1,7 +1,8 @@
 // Refreshes the files website vendors from ../ui (the single source of
 // truth for the registry). Run: bun run sync-ui
-// Vendored: registry catalog (Docs table + shelf coverage), PixelIcon +
-// its icons grid (Svelte), and the Svelte component inventory.
+// Vendored: registry catalog (Docs table + shelf coverage), the served React
+// catalog at /r/registry.json, PixelIcon + its icons grid (Svelte), and the
+// Svelte component inventory.
 import { copyFileSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,6 +14,7 @@ mkdirSync(resolve(root, "src/data"), { recursive: true });
 mkdirSync(resolve(root, "src/components"), { recursive: true });
 
 copyFileSync(resolve(ui, "registry.json"), resolve(root, "src/data/registry.json"));
+copyFileSync(resolve(ui, "registry.json"), resolve(root, "public/r/registry.json"));
 copyFileSync(
   resolve(ui, "svelte/src/lib/components/pixel-icon.svelte"),
   resolve(root, "src/components/pixel-icon.svelte")
@@ -33,5 +35,5 @@ writeFileSync(
 );
 
 console.log(
-  `synced src/data/registry.json + src/components/pixel-icon.svelte + icons.ts + src/data/svelte.json (${svelte.length} components) from ../ui`
+  `synced src/data/registry.json + public/r/registry.json + src/components/pixel-icon.svelte + icons.ts + src/data/svelte.json (${svelte.length} components) from ../ui`
 );

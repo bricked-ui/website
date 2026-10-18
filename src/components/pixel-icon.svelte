@@ -27,6 +27,30 @@
     resolved ? Math.max(...resolved.map((r) => r.length)) : 0
   );
   const rows = $derived(resolved ? resolved.length : 0);
+
+  /** Merge each row's filled cells into horizontal runs → one compact path per grid. */
+  const pathCache = new WeakMap<readonly string[], string>();
+  function gridPath(grid: readonly string[]): string {
+    let d = pathCache.get(grid);
+    if (d !== undefined) return d;
+    const parts: string[] = [];
+    for (let y = 0; y < grid.length; y++) {
+      const row = grid[y];
+      let x = 0;
+      while (x < row.length) {
+        if (row[x] === "1") {
+          let len = 1;
+          while (row[x + len] === "1") len++;
+          parts.push(`M${x} ${y}h${len}v1h-${len}z`);
+          x += len;
+        } else x++;
+      }
+    }
+    d = parts.join("");
+    pathCache.set(grid, d);
+    return d;
+  }
+  const d = $derived(resolved ? gridPath(resolved) : "");
 </script>
 
 {#if resolved}
@@ -37,12 +61,6 @@
     shape-rendering="crispEdges"
     aria-hidden="true"
   >
-    {#each resolved as row, y}
-      {#each [...row] as cell, x}
-        {#if cell === "1"}
-          <rect x={x} y={y} width={1} height={1} fill="currentColor" />
-        {/if}
-      {/each}
-    {/each}
+    <path {d} fill="currentColor" />
   </svg>
 {/if}

@@ -206,7 +206,20 @@
   </Card>
 {:else if category === "icons"}
   <Card title="Pixel icons">
-    <Demo tag={`@bricked/pixel-icon — ${Object.keys(ICONS).length} glyphs (brands are 16×16, the rest 7×7)`}>
+    <Demo tag={`@bricked/pixel-icon — ${Object.keys(ICONS).length} glyphs (7×7 basics · 16×16 brands · 42×42 Streamline Pixel)`}>
+      <p class="icon-notice">
+        <b>Note —</b> many of these icons are from Streamline: 662 of
+        {Object.keys(ICONS).length} (every 42×42 glyph) come from Streamline's
+        free Pixel set, ©
+        <a href="https://www.streamlinehq.com" target="_blank" rel="noopener"
+          >Streamline</a
+        >, adapted to 0/1 grids and licensed
+        <a
+          href="https://creativecommons.org/licenses/by/4.0/"
+          target="_blank"
+          rel="noopener">CC BY 4.0</a
+        >.
+      </p>
       <div class="bk-search" style="max-width: 420px; margin-bottom: 8px;">
         <input
           type="search"
@@ -223,9 +236,15 @@
       {#if iconNames.length}
         <div class="icon-grid">
           {#each iconNames as name}
-            <figure style={ICONS[name as PixelIconName].length > 7 ? "--icon: 2px;" : undefined}>
+            <figure
+              style={ICONS[name as PixelIconName].length > 21
+                ? "--icon: 1.5px;"
+                : ICONS[name as PixelIconName].length > 7
+                  ? "--icon: 2px;"
+                  : undefined}
+            >
               <PixelIcon name={name as PixelIconName} />
-              <figcaption>{name}</figcaption>
+              <figcaption title={name}>{name}</figcaption>
             </figure>
           {/each}
         </div>
